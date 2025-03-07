@@ -3,7 +3,8 @@
 #define REQUEST_STATE_NONE 0
 #define REQUEST_STATE_WAIT_FOR_JS_READY 1
 #define REQUEST_STATE_SEND_BATTERY_LEVEL 2
-#define REQUEST_STATE_RECEIVED_RESPONSE 3
+#define REQUEST_STATE_SEND_SUCCESSFUL 3
+#define REQUEST_STATE_RECEIVED_RESPONSE 4
 
 #include <pebble.h>
 
@@ -19,6 +20,8 @@ static ClaySettings settings;
 static bool s_js_ready;
 static bool s_request_status;
 static BatteryChargeState s_charge_state;
+static AppTimer *s_timeout_timer;
+
 static Window *s_window;
 static TextLayer *s_text_layer;
 
@@ -69,6 +72,37 @@ bool parse_time(const char *time_str, int8_t *hours, int8_t *minutes) {
     }
 
     return true;
+}
+
+static void send_with_timeout(int key, int value) {
+  // Construct and send the message
+  DitionaryIterator *iter;
+  if(app_message_outbox_begin(&iter) == APP_MSG_OK) {
+    dict_write_int(iter, key, &value, sizeof(int), true);
+    app_message_outbox_send();
+  }
+
+  // Schedule the timeout timer
+  const int interval_ms = 1000;
+  s_timout_timer = app_timer_register(interval_ms, timout_timer_handler, NULL);
+}
+
+static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
+  // Successful message, the timeout is not needed anymore for this message
+  app_timer_cancel(s_timout_timer);
+  if (s_request_status == REQUEST_STATE_SEND_BATTERY_LEVEL)
+  {
+    s_request_status = REQUEST_STATE_SEND_SUCCESSFUL;
+    static char battery_text[46];
+    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Sent!", s_charge_state.charge_percent);
+    text_layer_set_text(s_text_layer, battery_text);
+  }
+}
+
+static void timout_timer_handler(void *context) {
+  // The timer elapsed because no success was reported
+  // Retry the message
+  send_with_timeout(some_key, some_value);
 }
 
 // AppMessage receive handler
@@ -124,10 +158,11 @@ static void update(struct tm *tick_time, TimeUnits units_changed) { // runs ever
     static char battery_text[46];
     if (comm_is_js_ready())
     {
+      s_request_status = REQUEST_STATE_SEND_BATTERY_LEVEL;
       snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Sending...", s_charge_state.charge_percent);
       text_layer_set_text(s_text_layer, battery_text);
-      s_request_status = REQUEST_STATE_SEND_BATTERY_LEVEL;
-      //TODO send event to js
+      // tell js to send the level to endpoint
+      send_with_timeout(MESSAGE_KEY_requestSendToEndpoint, s_charge_state.charge_percent);
     }
     else
     {
@@ -169,6 +204,7 @@ static void prv_init(void) {
 
   // Open AppMessage connection
   app_message_register_inbox_received(prv_inbox_received_handler);
+  app_message_register_outbox_sent(outbox_sent_callback);
   app_message_open(128, 128);
 
   // Register with TickTimerService

@@ -30,7 +30,8 @@
       "sendWhenAppOpened",
       "fixedTime",
       "endpoint",
-      "JSReady"
+      "JSReady",
+      "requestSendToEndpoint"
     ],
     "resources": {
       "media": []
