@@ -83,8 +83,7 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   
   Tuple *fixedTime_t = dict_find(iter, MESSAGE_KEY_fixedTime);
   if (fixedTime_t) {
-    //char *time_str = fixedTime_t->value->cstring;  // Get time string "HH:MM"
-    char time_str[10] = "12:24";
+    char *time_str = fixedTime_t->value->cstring;  // Get time string "HH:MM"
     int8_t hours;
     int8_t minutes;
     
