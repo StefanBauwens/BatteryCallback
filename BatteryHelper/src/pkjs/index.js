@@ -44,7 +44,7 @@ Pebble.addEventListener('webviewclosed',
     var dict = clay.getSettings(e.response);
 
     // handle everything sent as 24h string
-    var timeStr = settings[messageKeys.fixedTime]; //can be "2:30 PM" or "14:30" for example
+    var timeStr = dict[messageKeys.fixedTime]; //can be "2:30 PM" or "14:30" for example
     var match = timeStr.match(/(\d+):(\d+) ?(AM|PM)?/i);
 
     if (match) {
@@ -59,7 +59,7 @@ Pebble.addEventListener('webviewclosed',
         }
 
         // Format as HH:MM (always 24-hour format)
-        settings[timeKey] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
+        dict[messageKeys.fixedTime] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
     }
 
     // Send settings values to watch side
