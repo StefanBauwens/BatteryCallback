@@ -1,0 +1,40 @@
+{
+    "targetPlatforms": [
+        "aplite", 
+        "basalt", 
+        "chalk", 
+        "diorite"
+    ], 
+    "displayName": "Battery Helper", 
+    "name": "BatteryHelper", 
+    "messageKeys": {
+        "fixedTime": 10003, 
+        "sendWhenBatteryChanged": 10001, 
+        "endpoint": 10004, 
+        "sendAtFixedTime": 10000, 
+        "sendWhenAppOpened": 10002
+    }, 
+    "companyName": "Stefan Bauwens", 
+    "enableMultiJS": true, 
+    "versionLabel": "1.0", 
+    "capabilities": [
+        "configurable"
+    ], 
+    "sdkVersion": "3", 
+    "appKeys": {
+        "fixedTime": 10003, 
+        "sendWhenBatteryChanged": 10001, 
+        "endpoint": 10004, 
+        "sendAtFixedTime": 10000, 
+        "sendWhenAppOpened": 10002
+    }, 
+    "longName": "Battery Helper", 
+    "shortName": "Battery Helper", 
+    "watchapp": {
+        "watchface": false
+    }, 
+    "resources": {
+        "media": []
+    }, 
+    "uuid": "bfa0936b-a7ab-433c-8092-a93e934b9944"
+}
