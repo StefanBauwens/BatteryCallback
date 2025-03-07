@@ -31,7 +31,9 @@
       "fixedTime",
       "endpoint",
       "JSReady",
-      "requestSendToEndpoint"
+      "battery",
+      "permissionToCloseApp",
+      "httpError"
     ],
     "resources": {
       "media": []

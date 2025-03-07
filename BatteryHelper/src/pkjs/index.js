@@ -7,13 +7,15 @@ var messageKeys = require('message_keys');
 
 const TIMEOUT_MS = 1000;
 
-var xhrRequest = function (url, type, callback) {
+var xhrRequest = function (url, type, body, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
-      callback(this.responseText);
+      console.log("status: " + xhr.status + " response: " + xhr.responseText);
+      callback(xhr.status);
     };
     xhr.open(type, url);
-    xhr.send();
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(body));
 };
   
 // Listen for when the watchapp is opened
@@ -29,6 +31,18 @@ Pebble.addEventListener('appmessage',
   function(e) {
     var dict = e.payload;
     console.log('Got message: ' + JSON.stringify(dict));
+    if (dict[messageKeys.battery])
+    {
+        var endpoint = localStorage.getItem("ENDPOINT");
+        xhrRequest(endpoint, "POST", dict, function(statusCode) {
+            if (statusCode >= 200 && statusCode < 300)
+            {
+                Pebble.sendAppMessage({permissionToCloseApp: 1});
+            } else {
+                Pebble.sendAppMessage({httpError: statusCode});
+            }
+        });
+    }
   }                     
 );
 
@@ -44,6 +58,8 @@ Pebble.addEventListener('webviewclosed',
     if (e && !e.response) { return; }
   
     var dict = clay.getSettings(e.response);
+
+    localStorage.setItem("ENDPOINT", dict[messageKeys.endpoint]); // store endpoint
 
     // handle everything sent as 24h string
     var timeStr = dict[messageKeys.fixedTime]; //can be "2:30 PM" or "14:30" for example
@@ -64,6 +80,8 @@ Pebble.addEventListener('webviewclosed',
         dict[messageKeys.fixedTime] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
     }
 
+    dict[messageKeys.permissionToCloseApp] = 1; // tell the watch-app its safe to close now
+
     // Send settings values to watch side
     Pebble.sendAppMessage(dict, function(e) {
         console.log('Sent config data to Pebble');
@@ -73,7 +91,5 @@ Pebble.addEventListener('webviewclosed',
     });
 
     console.log("fixedTime: " + dict[messageKeys.fixedTime]);
-    //localStorage.setItem("OPENWEATHER_APIKEY", dict[messageKeys.apiKey]);
-    //localStorage.setItem("USEFAHRENHEIT", dict[messageKeys.useFahrenheit]);
   }
 );

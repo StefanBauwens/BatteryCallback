@@ -4,7 +4,7 @@
 #define REQUEST_STATE_WAIT_FOR_JS_READY 1
 #define REQUEST_STATE_SEND_BATTERY_LEVEL 2
 #define REQUEST_STATE_SEND_SUCCESSFUL 3
-#define REQUEST_STATE_RECEIVED_RESPONSE 4
+#define REQUEST_STATE_RECEIVED_BAD_RESPONSE 4
 
 #include <pebble.h>
 
@@ -21,6 +21,7 @@ typedef struct ClaySettings {
 
 static ClaySettings settings;
 static bool s_js_ready;
+static bool s_permission_to_close;
 static int8_t s_request_status;
 static BatteryChargeState s_charge_state;
 static AppTimer *s_timeout_timer;
@@ -43,7 +44,7 @@ static bool comm_is_js_ready() {
   return s_js_ready;
 }
 
-static void prv_quit_self() {
+static void quit_self() {
   window_stack_pop_all(true);
 }
 
@@ -107,7 +108,7 @@ static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
   {
     s_request_status = REQUEST_STATE_SEND_SUCCESSFUL;
     static char battery_text[46];
-    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Sent!", s_charge_state.charge_percent);
+    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Waiting for JS...", s_charge_state.charge_percent);
     text_layer_set_text(s_text_layer, battery_text);
   }
 }
@@ -118,12 +119,25 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   Tuple *ready_t = dict_find(iter, MESSAGE_KEY_JSReady);
   if (ready_t) {
     s_js_ready = true; // safe to send messages
+    s_permission_to_close = false; // we just opened the app so not yet ready to close
   }
 
-  /*Tuple *endpoint_t = dict_find(iter, MESSAGE_KEY_endpoint);
-  if (endpoint_t) {
-    settings.Endpoint = endpoint_t->value->cstring;
-  }*/
+  Tuple *permissionToCloseApp_t = dict_find(iter, MESSAGE_KEY_permissionToCloseApp);
+  if (permissionToCloseApp_t) {
+    s_permission_to_close = true;
+    static char battery_text[46];
+    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success!", s_charge_state.charge_percent);
+    text_layer_set_text(s_text_layer, battery_text);
+    quit_self();
+  }
+
+  Tuple *httpError_t = dict_find(iter, MESSAGE_KEY_httpError);
+  if (httpError_t) {
+    s_request_status = REQUEST_STATE_RECEIVED_BAD_RESPONSE;
+    static char battery_text[46];
+    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Fail! %d", s_charge_state.charge_percent, httpError_t->value->int32);
+    text_layer_set_text(s_text_layer, battery_text);
+  }
   
   Tuple *sendWhenAppOpened_t = dict_find(iter, MESSAGE_KEY_sendWhenAppOpened);
   if (sendWhenAppOpened_t) {
@@ -169,11 +183,11 @@ static void update(struct tm *tick_time, TimeUnits units_changed) { // runs ever
       snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Sending...", s_charge_state.charge_percent);
       text_layer_set_text(s_text_layer, battery_text);
       // tell js to send the level to endpoint
-      send_with_timeout(MESSAGE_KEY_requestSendToEndpoint, s_charge_state.charge_percent);
+      send_with_timeout(MESSAGE_KEY_battery, s_charge_state.charge_percent);
     }
     else
     {
-      snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Waiting for JS...", s_charge_state.charge_percent);
+      snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Waiting to send...", s_charge_state.charge_percent);
       text_layer_set_text(s_text_layer, battery_text);
     }
   }
