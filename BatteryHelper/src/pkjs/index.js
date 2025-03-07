@@ -14,8 +14,9 @@ var xhrRequest = function (url, type, body, callback) {
       callback(xhr.status);
     };
     xhr.open(type, url);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify(body));
+    xhr.send();
+    //xhr.setRequestHeader("Content-Type", "application/json");
+    //xhr.send(JSON.stringify(body));
 };
   
 // Listen for when the watchapp is opened
@@ -34,7 +35,7 @@ Pebble.addEventListener('appmessage',
     if (dict[messageKeys.battery])
     {
         var endpoint = localStorage.getItem("ENDPOINT");
-        xhrRequest(endpoint, "POST", dict, function(statusCode) {
+        xhrRequest(endpoint + "?battery=" + dict[messageKeys.battery], "GET", dict, function(statusCode) {
             if (statusCode >= 200 && statusCode < 300)
             {
                 Pebble.sendAppMessage({permissionToCloseApp: 1});
