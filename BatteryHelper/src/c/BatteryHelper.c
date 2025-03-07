@@ -102,6 +102,7 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
 
 static void prv_select_click_handler(ClickRecognizerRef recognizer, void *context) {
   text_layer_set_text(s_text_layer, "Select");
+  window_stack_pop_all(false);
 }
 
 static void prv_up_click_handler(ClickRecognizerRef recognizer, void *context) {
