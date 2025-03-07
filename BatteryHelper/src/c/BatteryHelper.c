@@ -21,7 +21,7 @@ typedef struct ClaySettings {
 
 static ClaySettings settings;
 static bool s_js_ready;
-static bool s_request_status;
+static int8_t s_request_status;
 static BatteryChargeState s_charge_state;
 static AppTimer *s_timeout_timer;
 static int s_last_key;
