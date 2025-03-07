@@ -135,7 +135,8 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   if (httpError_t) {
     s_request_status = REQUEST_STATE_RECEIVED_BAD_RESPONSE;
     static char battery_text[46];
-    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Fail! %d", s_charge_state.charge_percent, httpError_t->value->int32);
+    int statusCode = httpError_t->value->int32;
+    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Fail! %d", s_charge_state.charge_percent, statusCode);
     text_layer_set_text(s_text_layer, battery_text);
   }
   

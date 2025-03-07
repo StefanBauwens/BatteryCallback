@@ -1,8 +1,10 @@
 {
     "JSReady": 10005,
+    "battery": 10006,
     "endpoint": 10004,
     "fixedTime": 10003,
-    "requestSendToEndpoint": 10006,
+    "httpError": 10008,
+    "permissionToCloseApp": 10007,
     "sendAtFixedTime": 10000,
     "sendWhenAppOpened": 10002,
     "sendWhenBatteryChanged": 10001

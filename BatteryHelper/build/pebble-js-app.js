@@ -87,13 +87,15 @@
 	
 	const TIMEOUT_MS = 1000;
 	
-	var xhrRequest = function (url, type, callback) {
+	var xhrRequest = function (url, type, body, callback) {
 	    var xhr = new XMLHttpRequest();
 	    xhr.onload = function () {
-	      callback(this.responseText);
+	      console.log("status: " + xhr.status + " response: " + xhr.responseText);
+	      callback(xhr.status);
 	    };
 	    xhr.open(type, url);
-	    xhr.send();
+	    xhr.setRequestHeader("Content-Type", "application/json");
+	    xhr.send(JSON.stringify(body));
 	};
 	  
 	// Listen for when the watchapp is opened
@@ -109,6 +111,18 @@
 	  function(e) {
 	    var dict = e.payload;
 	    console.log('Got message: ' + JSON.stringify(dict));
+	    if (dict[messageKeys.battery])
+	    {
+	        var endpoint = localStorage.getItem("ENDPOINT");
+	        xhrRequest(endpoint, "POST", dict, function(statusCode) {
+	            if (statusCode >= 200 && statusCode < 300)
+	            {
+	                Pebble.sendAppMessage({permissionToCloseApp: 1});
+	            } else {
+	                Pebble.sendAppMessage({httpError: statusCode});
+	            }
+	        });
+	    }
 	  }                     
 	);
 	
@@ -124,6 +138,8 @@
 	    if (e && !e.response) { return; }
 	  
 	    var dict = clay.getSettings(e.response);
+	
+	    localStorage.setItem("ENDPOINT", dict[messageKeys.endpoint]); // store endpoint
 	
 	    // handle everything sent as 24h string
 	    var timeStr = dict[messageKeys.fixedTime]; //can be "2:30 PM" or "14:30" for example
@@ -144,6 +160,8 @@
 	        dict[messageKeys.fixedTime] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
 	    }
 	
+	    dict[messageKeys.permissionToCloseApp] = 1; // tell the watch-app its safe to close now
+	
 	    // Send settings values to watch side
 	    Pebble.sendAppMessage(dict, function(e) {
 	        console.log('Sent config data to Pebble');
@@ -153,8 +171,6 @@
 	    });
 	
 	    console.log("fixedTime: " + dict[messageKeys.fixedTime]);
-	    //localStorage.setItem("OPENWEATHER_APIKEY", dict[messageKeys.apiKey]);
-	    //localStorage.setItem("USEFAHRENHEIT", dict[messageKeys.useFahrenheit]);
 	  }
 	);
 
@@ -196,7 +212,7 @@
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = {"JSReady":10005,"endpoint":10004,"fixedTime":10003,"requestSendToEndpoint":10006,"sendAtFixedTime":10000,"sendWhenAppOpened":10002,"sendWhenBatteryChanged":10001}
+	module.exports = {"JSReady":10005,"battery":10006,"endpoint":10004,"fixedTime":10003,"httpError":10008,"permissionToCloseApp":10007,"sendAtFixedTime":10000,"sendWhenAppOpened":10002,"sendWhenBatteryChanged":10001}
 
 /***/ }),
 /* 6 */

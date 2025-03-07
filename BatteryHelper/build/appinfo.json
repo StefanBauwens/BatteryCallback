@@ -11,10 +11,12 @@
         "fixedTime": 10003, 
         "sendWhenAppOpened": 10002, 
         "endpoint": 10004, 
-        "requestSendToEndpoint": 10006, 
         "JSReady": 10005, 
         "sendWhenBatteryChanged": 10001, 
-        "sendAtFixedTime": 10000
+        "battery": 10006, 
+        "httpError": 10008, 
+        "sendAtFixedTime": 10000, 
+        "permissionToCloseApp": 10007
     }, 
     "companyName": "Stefan Bauwens", 
     "enableMultiJS": true, 
@@ -27,10 +29,12 @@
         "fixedTime": 10003, 
         "sendWhenAppOpened": 10002, 
         "endpoint": 10004, 
-        "requestSendToEndpoint": 10006, 
         "JSReady": 10005, 
         "sendWhenBatteryChanged": 10001, 
-        "sendAtFixedTime": 10000
+        "battery": 10006, 
+        "httpError": 10008, 
+        "sendAtFixedTime": 10000, 
+        "permissionToCloseApp": 10007
     }, 
     "longName": "Battery Helper", 
     "shortName": "Battery Helper", 
