@@ -1,14 +1,15 @@
 #define SETTINGS_KEY 1
 #define URL_MAX_LENGTH 80 //TODO unused for now
 #include <pebble.h>
+//#include <stdio.h>
 
 typedef struct ClaySettings {
   char *Endpoint; //TODO test
   bool SendWhenAppOpened;
   bool SendWhenBatteryChanged;
   bool SendAtFixedTime;
-  u_int8_t FixedTimeHours;
-  u_int8_t FixedTimeMinutes;
+  int8_t FixedTimeHours;
+  int8_t FixedTimeMinutes;
 } ClaySettings;
 
 static ClaySettings settings;
@@ -40,40 +41,47 @@ static void prv_save_settings() {
 
 // AppMessage receive handler
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
+  
   // Assign the values to our struct
-  Tuple *endpoint_t = dict_find(iter, MESSAGE_KEY_Endpoint);
+  Tuple *endpoint_t = dict_find(iter, MESSAGE_KEY_endpoint);
   if (endpoint_t) {
     settings.Endpoint = endpoint_t->value->cstring;
   }
-
-  Tuple *sendWhenAppOpened_t = dict_find(iter, MESSAGE_KEY_SendWhenAppOpened);
+  
+  Tuple *sendWhenAppOpened_t = dict_find(iter, MESSAGE_KEY_sendWhenAppOpened);
   if (sendWhenAppOpened_t) {
-    settings.SendWhenAppOpened = sendWhenAppOpened_t->value->int8;
+    settings.SendWhenAppOpened = sendWhenAppOpened_t->value->int32;
   }
 
-  Tuple *sendWhenBatteryChanged_t = dict_find(iter, MESSAGE_KEY_SendWhenBatteryChanged);
+  Tuple *sendWhenBatteryChanged_t = dict_find(iter, MESSAGE_KEY_sendWhenBatteryChanged);
   if (sendWhenBatteryChanged_t) {
-    settings.SendWhenBatteryChanged = sendWhenBatteryChanged_t->value->int8;
+    settings.SendWhenBatteryChanged = sendWhenBatteryChanged_t->value->int32;
   }
 
-  Tuple *sendAtFixedTime_t = dict_find(iter, MESSAGE_KEY_SendAtFixedTime);
+  Tuple *sendAtFixedTime_t = dict_find(iter, MESSAGE_KEY_sendAtFixedTime);
   if (sendAtFixedTime_t) {
-    settings.SendAtFixedTime = sendAtFixedTime_t->value->int8;
+    settings.SendAtFixedTime = sendAtFixedTime_t->value->int32;
   }
-
-  Tuple *fixedTime_t = dict_find(iter, MESSAGE_KEY_FixedTime);
-  if (fixed_time_t) {
-    char *time_str = fixedTime_t->value->cstring;  // Get time string "HH:MM"
-    uint8_t hours = 0, minutes = 0;
-
+  
+  Tuple *fixedTime_t = dict_find(iter, MESSAGE_KEY_fixedTime);
+  if (fixedTime_t) {
+    //char *time_str = fixedTime_t->value->cstring;  // Get time string "HH:MM"
+    char time_str[10] = "12:24";
+    int8_t hours;
+    int8_t minutes;
+    
     // Parse "HH:MM" format
-    if (sscanf(time_str, "%2hhu:%2hhu", &hours, &minutes) == 2) {
+    /*if(sscanf(time_str, "%2d:%2d", &hours, &minutes) == 2)
+    {
+
+    }*/
+    /*if (sscanf(time_str, "%2d:%2d", &hours, &minutes) == 2) {
         APP_LOG(APP_LOG_LEVEL_INFO, "Parsed time: %02d:%02d", hours, minutes);
         settings.FixedTimeHours = hours;
         settings.FixedTimeMinutes = minutes;
     } else {
         APP_LOG(APP_LOG_LEVEL_ERROR, "Failed to parse time string: %s", time_str);
-    }
+    }*/
   }
   
   prv_save_settings();
@@ -125,7 +133,6 @@ static void prv_init(void) {
     .unload = prv_window_unload,
   });
   const bool animated = true;
-
 
   window_stack_push(s_window, animated);
 }

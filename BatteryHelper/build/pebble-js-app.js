@@ -123,6 +123,25 @@
 	  
 	    var dict = clay.getSettings(e.response);
 	
+	    // handle everything sent as 24h string
+	    var timeStr = settings[messageKeys.fixedTime]; //can be "2:30 PM" or "14:30" for example
+	    var match = timeStr.match(/(\d+):(\d+) ?(AM|PM)?/i);
+	
+	    if (match) {
+	        var hours = parseInt(match[1], 10);
+	        var minutes = parseInt(match[2], 10);
+	        var period = match[3] ? match[3].toUpperCase() : null;
+	
+	        if (period === "PM" && hours !== 12) {
+	            hours += 12;
+	        } else if (period === "AM" && hours === 12) {
+	            hours = 0; // Midnight case
+	        }
+	
+	        // Format as HH:MM (always 24-hour format)
+	        settings[timeKey] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
+	    }
+	
 	    // Send settings values to watch side
 	    Pebble.sendAppMessage(dict, function(e) {
 	        console.log('Sent config data to Pebble');
@@ -131,7 +150,7 @@
 	        console.log(JSON.stringify(e));
 	    });
 	
-	    //console.log("apikey: " + dict[messageKeys.apiKey]);
+	    console.log("fixedTime: " + dict[messageKeys.fixedTime]);
 	    //localStorage.setItem("OPENWEATHER_APIKEY", dict[messageKeys.apiKey]);
 	    //localStorage.setItem("USEFAHRENHEIT", dict[messageKeys.useFahrenheit]);
 	  }
