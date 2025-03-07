@@ -39,6 +39,24 @@ static void prv_save_settings() {
   persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
 
+bool parse_time(const char *time_str, int8_t *hours, int8_t *minutes) {
+    if (time_str == NULL || strlen(time_str) != 5) {
+        return false;  // Invalid time string (must be in HH:MM format)
+    }
+    
+    // Parse the hours
+    *hours = (time_str[0] - '0') * 10 + (time_str[1] - '0');
+    // Parse the minutes
+    *minutes = (time_str[3] - '0') * 10 + (time_str[4] - '0');
+    
+    // Validate hours and minutes
+    if (*hours < 0 || *hours > 23 || *minutes < 0 || *minutes > 59) {
+        return false;  // Invalid time range
+    }
+
+    return true;
+}
+
 // AppMessage receive handler
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
   
@@ -71,10 +89,11 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
     int8_t minutes;
     
     // Parse "HH:MM" format
-    /*if(sscanf(time_str, "%2d:%2d", &hours, &minutes) == 2)
+    if(parse_time(time_str, &hours, &minutes))
     {
-
-    }*/
+      settings.FixedTimeHours = hours;
+      settings.FixedTimeMinutes = minutes;
+    }
     /*if (sscanf(time_str, "%2d:%2d", &hours, &minutes) == 2) {
         APP_LOG(APP_LOG_LEVEL_INFO, "Parsed time: %02d:%02d", hours, minutes);
         settings.FixedTimeHours = hours;
