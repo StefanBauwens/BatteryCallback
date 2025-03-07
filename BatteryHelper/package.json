@@ -1,12 +1,14 @@
 {
   "name": "BatteryHelper",
-  "author": "MakeAwesomeHappen",
+  "author": "Stefan Bauwens",
   "version": "1.0.0",
   "keywords": ["pebble-app"],
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    
+  },
   "pebble": {
-    "displayName": "BatteryHelper",
+    "displayName": "Battery Helper",
     "uuid": "bfa0936b-a7ab-433c-8092-a93e934b9944",
     "sdkVersion": "3",
     "enableMultiJS": true,
