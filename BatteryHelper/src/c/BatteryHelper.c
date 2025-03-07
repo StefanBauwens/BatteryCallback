@@ -102,8 +102,8 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
 
 static void prv_get_battery() {
   BatteryChargeState state = battery_state_service_peek();
-  char battery_text[5];
-  snprintf(battery_text, sizeof(battery_text), "%d", state.charge_percent);
+  static char battery_text[16];
+  snprintf(battery_text, sizeof(battery_text), "Battery: %d%%", state.charge_percent);
   text_layer_set_text(s_text_layer, battery_text);
 }
 
@@ -112,10 +112,10 @@ static void prv_window_load(Window *window) {
   GRect bounds = layer_get_bounds(window_layer);
 
   s_text_layer = text_layer_create(GRect(0, 72, bounds.size.w, 20));
-  text_layer_set_text(s_text_layer, "Fetching battery...");
+  //text_layer_set_text(s_text_layer, "Fetching battery...");
+  prv_get_battery();
   text_layer_set_text_alignment(s_text_layer, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(s_text_layer));
-  prv_get_battery();
 }
 
 static void prv_window_unload(Window *window) {
