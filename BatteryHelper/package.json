@@ -29,7 +29,8 @@
       "sendWhenBatteryChanged",
       "sendWhenAppOpened",
       "fixedTime",
-      "endpoint"
+      "endpoint",
+      "JSReady"
     ],
     "resources": {
       "media": []

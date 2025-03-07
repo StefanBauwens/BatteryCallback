@@ -20,6 +20,7 @@ var xhrRequest = function (url, type, callback) {
 Pebble.addEventListener('ready', 
     function(e) {
         console.log('PebbleKit JS ready!');
+        Pebble.sendAppMessage({'JSReady': 1}); // notify watch app we're ready to receive
     }   
 );
 
