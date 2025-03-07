@@ -145,9 +145,10 @@ static void prv_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
-  s_text_layer = text_layer_create(GRect(0, 72, bounds.size.w, 20));
+  s_text_layer = text_layer_create(GRect(0, 72, bounds.size.w, 50));
   text_layer_set_text(s_text_layer, "Fetching battery...");
   text_layer_set_text_alignment(s_text_layer, GTextAlignmentCenter);
+  text_layer_set_overflow_mode(s_text_layer, GTextOverflowModeWordWrap);
   layer_add_child(window_layer, text_layer_get_layer(s_text_layer));
 
   if (settings.SendWhenAppOpened || settings.SendAtFixedTime)
