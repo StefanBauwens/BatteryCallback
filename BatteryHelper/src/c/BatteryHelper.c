@@ -1,7 +1,83 @@
+#define SETTINGS_KEY 1
+#define URL_MAX_LENGTH 80 //TODO unused for now
 #include <pebble.h>
 
+typedef struct ClaySettings {
+  char *Endpoint; //TODO test
+  bool SendWhenAppOpened;
+  bool SendWhenBatteryChanged;
+  bool SendAtFixedTime;
+  u_int8_t FixedTimeHours;
+  u_int8_t FixedTimeMinutes;
+} ClaySettings;
+
+static ClaySettings settings;
 static Window *s_window;
 static TextLayer *s_text_layer;
+
+// Initialize the default settings
+static void prv_default_settings() {
+  settings.Endpoint = "";
+  settings.SendWhenAppOpened = true;
+  settings.SendWhenBatteryChanged = false;
+  settings.SendAtFixedTime = false;
+  settings.FixedTimeHours = 0;
+  settings.FixedTimeMinutes = 0;
+}
+
+// Read settings from persistent storage
+static void prv_load_settings() {
+  // Load the default settings
+  prv_default_settings();
+  // Read settings from persistent storage, if they exist
+  persist_read_data(SETTINGS_KEY, &settings, sizeof(settings));
+}
+
+// Save the settings to persistent storage
+static void prv_save_settings() {
+  persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
+}
+
+// AppMessage receive handler
+static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
+  // Assign the values to our struct
+  Tuple *endpoint_t = dict_find(iter, MESSAGE_KEY_Endpoint);
+  if (endpoint_t) {
+    settings.Endpoint = endpoint_t->value->cstring;
+  }
+
+  Tuple *sendWhenAppOpened_t = dict_find(iter, MESSAGE_KEY_SendWhenAppOpened);
+  if (sendWhenAppOpened_t) {
+    settings.SendWhenAppOpened = sendWhenAppOpened_t->value->int8;
+  }
+
+  Tuple *sendWhenBatteryChanged_t = dict_find(iter, MESSAGE_KEY_SendWhenBatteryChanged);
+  if (sendWhenBatteryChanged_t) {
+    settings.SendWhenBatteryChanged = sendWhenBatteryChanged_t->value->int8;
+  }
+
+  Tuple *sendAtFixedTime_t = dict_find(iter, MESSAGE_KEY_SendAtFixedTime);
+  if (sendAtFixedTime_t) {
+    settings.SendAtFixedTime = sendAtFixedTime_t->value->int8;
+  }
+
+  Tuple *fixedTime_t = dict_find(iter, MESSAGE_KEY_FixedTime);
+  if (fixed_time_t) {
+    char *time_str = fixedTime_t->value->cstring;  // Get time string "HH:MM"
+    uint8_t hours = 0, minutes = 0;
+
+    // Parse "HH:MM" format
+    if (sscanf(time_str, "%2hhu:%2hhu", &hours, &minutes) == 2) {
+        APP_LOG(APP_LOG_LEVEL_INFO, "Parsed time: %02d:%02d", hours, minutes);
+        settings.FixedTimeHours = hours;
+        settings.FixedTimeMinutes = minutes;
+    } else {
+        APP_LOG(APP_LOG_LEVEL_ERROR, "Failed to parse time string: %s", time_str);
+    }
+  }
+  
+  prv_save_settings();
+}
 
 static void prv_select_click_handler(ClickRecognizerRef recognizer, void *context) {
   text_layer_set_text(s_text_layer, "Select");
@@ -36,6 +112,12 @@ static void prv_window_unload(Window *window) {
 }
 
 static void prv_init(void) {
+  prv_load_settings();
+
+  // Open AppMessage connection
+  app_message_register_inbox_received(prv_inbox_received_handler);
+  app_message_open(128, 128);
+
   s_window = window_create();
   window_set_click_config_provider(s_window, prv_click_config_provider);
   window_set_window_handlers(s_window, (WindowHandlers) {
@@ -43,6 +125,8 @@ static void prv_init(void) {
     .unload = prv_window_unload,
   });
   const bool animated = true;
+
+
   window_stack_push(s_window, animated);
 }
 
