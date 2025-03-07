@@ -89,18 +89,13 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
     int8_t minutes;
     
     // Parse "HH:MM" format
-    if(parse_time(time_str, &hours, &minutes))
-    {
+    if(parse_time(time_str, &hours, &minutes)) {
+      APP_LOG(APP_LOG_LEVEL_INFO, "Parsed time: %02d:%02d", hours, minutes);
       settings.FixedTimeHours = hours;
       settings.FixedTimeMinutes = minutes;
-    }
-    /*if (sscanf(time_str, "%2d:%2d", &hours, &minutes) == 2) {
-        APP_LOG(APP_LOG_LEVEL_INFO, "Parsed time: %02d:%02d", hours, minutes);
-        settings.FixedTimeHours = hours;
-        settings.FixedTimeMinutes = minutes;
     } else {
-        APP_LOG(APP_LOG_LEVEL_ERROR, "Failed to parse time string: %s", time_str);
-    }*/
+      APP_LOG(APP_LOG_LEVEL_ERROR, "Failed to parse time string: %s", time_str);
+    }
   }
   
   prv_save_settings();
