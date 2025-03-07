@@ -1,6 +1,8 @@
 {
+    "JSReady": 10005,
     "endpoint": 10004,
     "fixedTime": 10003,
+    "requestSendToEndpoint": 10006,
     "sendAtFixedTime": 10000,
     "sendWhenAppOpened": 10002,
     "sendWhenBatteryChanged": 10001

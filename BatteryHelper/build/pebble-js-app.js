@@ -100,13 +100,15 @@
 	Pebble.addEventListener('ready', 
 	    function(e) {
 	        console.log('PebbleKit JS ready!');
+	        Pebble.sendAppMessage({'JSReady': 1}); // notify watch app we're ready to receive
 	    }   
 	);
 	
 	// Listen for when an AppMessage is received
 	Pebble.addEventListener('appmessage',
 	  function(e) {
-	    console.log('AppMessage received!');
+	    var dict = e.payload;
+	    console.log('Got message: ' + JSON.stringify(dict));
 	  }                     
 	);
 	
@@ -194,7 +196,7 @@
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = {"endpoint":10004,"fixedTime":10003,"sendAtFixedTime":10000,"sendWhenAppOpened":10002,"sendWhenBatteryChanged":10001}
+	module.exports = {"JSReady":10005,"endpoint":10004,"fixedTime":10003,"requestSendToEndpoint":10006,"sendAtFixedTime":10000,"sendWhenAppOpened":10002,"sendWhenBatteryChanged":10001}
 
 /***/ }),
 /* 6 */

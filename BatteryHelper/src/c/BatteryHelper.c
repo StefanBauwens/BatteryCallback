@@ -8,6 +8,9 @@
 
 #include <pebble.h>
 
+static void send_with_timeout(int key, int value);
+static void timeout_timer_handler(void *context);
+
 typedef struct ClaySettings {
   bool SendWhenAppOpened;
   bool SendWhenBatteryChanged;
@@ -21,6 +24,8 @@ static bool s_js_ready;
 static bool s_request_status;
 static BatteryChargeState s_charge_state;
 static AppTimer *s_timeout_timer;
+static int s_last_key;
+static int s_last_value;
 
 static Window *s_window;
 static TextLayer *s_text_layer;
@@ -38,8 +43,7 @@ static bool comm_is_js_ready() {
   return s_js_ready;
 }
 
-static void prv_quit_self()
-{
+static void prv_quit_self() {
   window_stack_pop_all(true);
 }
 
@@ -74,9 +78,17 @@ bool parse_time(const char *time_str, int8_t *hours, int8_t *minutes) {
     return true;
 }
 
+static void timeout_timer_handler(void *context) {
+  // The timer elapsed because no success was reported
+  // Retry the message
+  send_with_timeout(s_last_key, s_last_value);
+}
+
 static void send_with_timeout(int key, int value) {
+  s_last_key = key;
+  s_last_value = value;
   // Construct and send the message
-  DitionaryIterator *iter;
+  DictionaryIterator *iter;
   if(app_message_outbox_begin(&iter) == APP_MSG_OK) {
     dict_write_int(iter, key, &value, sizeof(int), true);
     app_message_outbox_send();
@@ -84,12 +96,13 @@ static void send_with_timeout(int key, int value) {
 
   // Schedule the timeout timer
   const int interval_ms = 1000;
-  s_timout_timer = app_timer_register(interval_ms, timout_timer_handler, NULL);
+  s_timeout_timer = app_timer_register(interval_ms, timeout_timer_handler, NULL);
 }
 
 static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "Outbox sent %d", s_request_status);
   // Successful message, the timeout is not needed anymore for this message
-  app_timer_cancel(s_timout_timer);
+  app_timer_cancel(s_timeout_timer);
   if (s_request_status == REQUEST_STATE_SEND_BATTERY_LEVEL)
   {
     s_request_status = REQUEST_STATE_SEND_SUCCESSFUL;
@@ -97,12 +110,6 @@ static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
     snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Sent!", s_charge_state.charge_percent);
     text_layer_set_text(s_text_layer, battery_text);
   }
-}
-
-static void timout_timer_handler(void *context) {
-  // The timer elapsed because no success was reported
-  // Retry the message
-  send_with_timeout(some_key, some_value);
 }
 
 // AppMessage receive handler
@@ -204,7 +211,7 @@ static void prv_init(void) {
 
   // Open AppMessage connection
   app_message_register_inbox_received(prv_inbox_received_handler);
-  app_message_register_outbox_sent(outbox_sent_callback);
+  app_message_register_outbox_sent(outbox_sent_handler);
   app_message_open(128, 128);
 
   // Register with TickTimerService

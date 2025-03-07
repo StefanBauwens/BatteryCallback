@@ -9,10 +9,12 @@
     "name": "BatteryHelper", 
     "messageKeys": {
         "fixedTime": 10003, 
-        "sendWhenBatteryChanged": 10001, 
+        "sendWhenAppOpened": 10002, 
         "endpoint": 10004, 
-        "sendAtFixedTime": 10000, 
-        "sendWhenAppOpened": 10002
+        "requestSendToEndpoint": 10006, 
+        "JSReady": 10005, 
+        "sendWhenBatteryChanged": 10001, 
+        "sendAtFixedTime": 10000
     }, 
     "companyName": "Stefan Bauwens", 
     "enableMultiJS": true, 
@@ -23,10 +25,12 @@
     "sdkVersion": "3", 
     "appKeys": {
         "fixedTime": 10003, 
-        "sendWhenBatteryChanged": 10001, 
+        "sendWhenAppOpened": 10002, 
         "endpoint": 10004, 
-        "sendAtFixedTime": 10000, 
-        "sendWhenAppOpened": 10002
+        "requestSendToEndpoint": 10006, 
+        "JSReady": 10005, 
+        "sendWhenBatteryChanged": 10001, 
+        "sendAtFixedTime": 10000
     }, 
     "longName": "Battery Helper", 
     "shortName": "Battery Helper", 
