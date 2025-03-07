@@ -25,8 +25,11 @@
       "watchface": false
     },
     "messageKeys": [
-      "Mode",
-      "Endpoint"
+      "sendAtFixedTime",
+      "sendWhenBatteryChanged",
+      "sendWhenAppOpened",
+      "fixedTime",
+      "endpoint"
     ],
     "resources": {
       "media": []
