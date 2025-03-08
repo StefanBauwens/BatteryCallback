@@ -36,7 +36,14 @@
       "httpError"
     ],
     "resources": {
-      "media": []
+      "media": [
+        {
+          "type": "png",
+          "name": "APP_ICON",
+          "file": "images/app_icon.png"
+        }
+      ]
     }
-  }
+  },
+  "icon": "APP_ICON"
 }
