@@ -23,6 +23,8 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 aplite/appinfo.auto.c.33.o
  .text          0x0000000000000000        0x0 aplite/src/resource_ids.auto.c.33.o
  .bss           0x0000000000000000        0x0 aplite/src/resource_ids.auto.c.33.o
+ .data.RESOURCE_ID_APP_ICON
+                0x0000000000000000        0x4 aplite/src/resource_ids.auto.c.33.o
  .text          0x0000000000000000        0x0 src/message_keys.auto.c.33.o
  .bss           0x0000000000000000        0x0 src/message_keys.auto.c.33.o
  .data.MESSAGE_KEY_endpoint
@@ -1167,7 +1169,7 @@ LOAD aplite/appinfo.auto.c.33.o
 LOAD aplite/src/resource_ids.auto.c.33.o
 LOAD src/message_keys.auto.c.33.o
 LOAD /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a
-LOAD /home/rebble/Documents/BatteryHelper/BatteryHelper/node_modules/pebble-clay/dist/binaries/aplite/libpebble-clay.a
+LOAD /home/rebble/Documents/GitHub/BatteryHelper/BatteryHelper/node_modules/pebble-clay/dist/binaries/aplite/libpebble-clay.a
 START GROUP
 LOAD /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a
 LOAD /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/lib/thumb2/libc.a
@@ -1414,7 +1416,7 @@ DISCARD
  libm.a(*)
  libgcc.a(*)
  *(.eh_frame)
-OUTPUT(/home/rebble/Documents/BatteryHelper/BatteryHelper/build/aplite/pebble-app.elf elf32-littlearm)
+OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryHelper/build/aplite/pebble-app.elf elf32-littlearm)
 
 .ARM.attributes
                 0x0000000000000000       0x27
@@ -1446,17 +1448,17 @@ OUTPUT(/home/rebble/Documents/BatteryHelper/BatteryHelper/build/aplite/pebble-ap
  .comment       0x0000000000000000       0x4f src/message_keys.auto.c.33.o
  .comment       0x0000000000000000       0x4f /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
 
-.debug_info     0x0000000000000000     0x18d0
+.debug_info     0x0000000000000000     0x18ed
  .debug_info    0x0000000000000000     0x1441 src/c/BatteryHelper.c.33.o
  .debug_info    0x0000000000001441      0x31a aplite/appinfo.auto.c.33.o
- .debug_info    0x000000000000175b       0x64 aplite/src/resource_ids.auto.c.33.o
- .debug_info    0x00000000000017bf      0x111 src/message_keys.auto.c.33.o
+ .debug_info    0x000000000000175b       0x81 aplite/src/resource_ids.auto.c.33.o
+ .debug_info    0x00000000000017dc      0x111 src/message_keys.auto.c.33.o
 
-.debug_abbrev   0x0000000000000000      0x49e
+.debug_abbrev   0x0000000000000000      0x4bc
  .debug_abbrev  0x0000000000000000      0x396 src/c/BatteryHelper.c.33.o
  .debug_abbrev  0x0000000000000396       0x9e aplite/appinfo.auto.c.33.o
- .debug_abbrev  0x0000000000000434       0x26 aplite/src/resource_ids.auto.c.33.o
- .debug_abbrev  0x000000000000045a       0x44 src/message_keys.auto.c.33.o
+ .debug_abbrev  0x0000000000000434       0x44 aplite/src/resource_ids.auto.c.33.o
+ .debug_abbrev  0x0000000000000478       0x44 src/message_keys.auto.c.33.o
 
 .debug_loc      0x0000000000000000      0x4c4
  .debug_loc     0x0000000000000000      0x4c4 src/c/BatteryHelper.c.33.o
@@ -1474,21 +1476,21 @@ OUTPUT(/home/rebble/Documents/BatteryHelper/BatteryHelper/build/aplite/pebble-ap
 .debug_ranges   0x0000000000000000      0x168
  .debug_ranges  0x0000000000000000      0x168 src/c/BatteryHelper.c.33.o
 
-.debug_line     0x0000000000000000      0x56e
- .debug_line    0x0000000000000000      0x363 src/c/BatteryHelper.c.33.o
- .debug_line    0x0000000000000363      0x125 aplite/appinfo.auto.c.33.o
- .debug_line    0x0000000000000488       0x1d aplite/src/resource_ids.auto.c.33.o
- .debug_line    0x00000000000004a5       0xc9 src/message_keys.auto.c.33.o
+.debug_line     0x0000000000000000      0x628
+ .debug_line    0x0000000000000000      0x36a src/c/BatteryHelper.c.33.o
+ .debug_line    0x000000000000036a      0x125 aplite/appinfo.auto.c.33.o
+ .debug_line    0x000000000000048f       0xd0 aplite/src/resource_ids.auto.c.33.o
+ .debug_line    0x000000000000055f       0xc9 src/message_keys.auto.c.33.o
 
-.debug_str      0x0000000000000000      0xe77
- .debug_str     0x0000000000000000      0xbf5 src/c/BatteryHelper.c.33.o
-                                        0xca6 (size before relaxing)
- .debug_str     0x0000000000000bf5      0x236 aplite/appinfo.auto.c.33.o
-                                        0x327 (size before relaxing)
- .debug_str     0x0000000000000e2b       0x1f aplite/src/resource_ids.auto.c.33.o
-                                         0xe8 (size before relaxing)
- .debug_str     0x0000000000000e4a       0x2d src/message_keys.auto.c.33.o
-                                        0x1d1 (size before relaxing)
+.debug_str      0x0000000000000000      0xe93
+ .debug_str     0x0000000000000000      0xbfc src/c/BatteryHelper.c.33.o
+                                        0xcad (size before relaxing)
+ .debug_str     0x0000000000000bfc      0x236 aplite/appinfo.auto.c.33.o
+                                        0x32e (size before relaxing)
+ .debug_str     0x0000000000000e32       0x34 aplite/src/resource_ids.auto.c.33.o
+                                        0x10d (size before relaxing)
+ .debug_str     0x0000000000000e66       0x2d src/message_keys.auto.c.33.o
+                                        0x1d8 (size before relaxing)
 
 .debug_frame    0x0000000000000000      0x104
  .debug_frame   0x0000000000000000      0x104 src/c/BatteryHelper.c.33.o

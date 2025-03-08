@@ -1,13 +1,13 @@
-# project  configured on Sat Mar  8 00:37:37 2025 by
+# project  configured on Sat Mar  8 15:28:36 2025 by
 # waf 1.7.11 (abi 98, python 20712f0 on linux2)
 # using /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/waf configure
 #
 ----------------------------------------
 Setting top to
-/home/rebble/Documents/BatteryHelper/BatteryHelper
+/home/rebble/Documents/GitHub/BatteryHelper/BatteryHelper
 ----------------------------------------
 Setting out to
-/home/rebble/Documents/BatteryHelper/BatteryHelper/build
+/home/rebble/Documents/GitHub/BatteryHelper/BatteryHelper/build
 ----------------------------------------
 Checking for program webpack
 /home/rebble/.pebble-sdk/SDKs/current/node_modules/.bin/webpack

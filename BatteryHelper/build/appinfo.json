@@ -5,8 +5,6 @@
         "chalk", 
         "diorite"
     ], 
-    "displayName": "Battery Helper", 
-    "name": "BatteryHelper", 
     "messageKeys": {
         "fixedTime": 10003, 
         "sendWhenAppOpened": 10002, 
@@ -21,10 +19,12 @@
     "companyName": "Stefan Bauwens", 
     "enableMultiJS": true, 
     "versionLabel": "1.0", 
-    "capabilities": [
-        "configurable"
-    ], 
+    "longName": "Battery Helper", 
+    "shortName": "Battery Helper", 
+    "icon": "APP_ICON", 
     "sdkVersion": "3", 
+    "displayName": "Battery Helper", 
+    "uuid": "bfa0936b-a7ab-433c-8092-a93e934b9944", 
     "appKeys": {
         "fixedTime": 10003, 
         "sendWhenAppOpened": 10002, 
@@ -36,13 +36,20 @@
         "sendAtFixedTime": 10000, 
         "permissionToCloseApp": 10007
     }, 
-    "longName": "Battery Helper", 
-    "shortName": "Battery Helper", 
+    "capabilities": [
+        "configurable"
+    ], 
+    "name": "BatteryHelper", 
     "watchapp": {
         "watchface": false
     }, 
     "resources": {
-        "media": []
-    }, 
-    "uuid": "bfa0936b-a7ab-433c-8092-a93e934b9944"
+        "media": [
+            {
+                "type": "png", 
+                "name": "APP_ICON", 
+                "file": "images/app_icon.png"
+            }
+        ]
+    }
 }
