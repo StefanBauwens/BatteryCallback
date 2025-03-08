@@ -10,7 +10,7 @@ const TIMEOUT_MS = 1000;
 var xhrRequest = function (url, type, body, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
-      console.log("status: " + xhr.status + " response: " + xhr.responseText);
+      console.log("status: " + xhr.status);
       callback(xhr.status);
     };
     xhr.open(type, url);
@@ -32,10 +32,12 @@ Pebble.addEventListener('appmessage',
   function(e) {
     var dict = e.payload;
     console.log('Got message: ' + JSON.stringify(dict));
-    if (dict[messageKeys.battery])
+    if (dict["battery"])
     {
+        console.log("here");
+        console.log(dict["battery"]);
         var endpoint = localStorage.getItem("ENDPOINT");
-        xhrRequest(endpoint + "?battery=" + dict[messageKeys.battery], "GET", dict, function(statusCode) {
+        xhrRequest(endpoint + "?battery=" + dict["battery"], "GET", dict, function(statusCode) {
             if (statusCode >= 200 && statusCode < 300)
             {
                 Pebble.sendAppMessage({permissionToCloseApp: 1});
