@@ -22,6 +22,7 @@ typedef struct ClaySettings {
 static ClaySettings settings;
 static bool s_js_ready;
 static bool s_permission_to_close;
+static bool s_config_set;
 static int8_t s_request_status;
 static BatteryChargeState s_charge_state;
 static AppTimer *s_timeout_timer;
@@ -52,6 +53,10 @@ static void quit_self() {
 static void prv_load_settings() {
   // Load the default settings
   prv_default_settings();
+
+  // check if config set
+  s_config_set = persist_exists(SETTINGS_KEY);
+
   // Read settings from persistent storage, if they exist
   persist_read_data(SETTINGS_KEY, &settings, sizeof(settings));
 }
@@ -208,10 +213,17 @@ static void prv_window_load(Window *window) {
   text_layer_set_overflow_mode(s_text_layer, GTextOverflowModeWordWrap);
   layer_add_child(window_layer, text_layer_get_layer(s_text_layer));
 
-  if (settings.SendWhenAppOpened || settings.SendAtFixedTime)
+  if (s_config_set)
   {
-    prv_get_battery_level();
-    s_request_status = REQUEST_STATE_WAIT_FOR_JS_READY;
+    if (settings.SendWhenAppOpened || settings.SendAtFixedTime)
+    {
+      prv_get_battery_level();
+      s_request_status = REQUEST_STATE_WAIT_FOR_JS_READY;
+    }
+  }
+  else
+  {
+    text_layer_set_text(s_text_layer, "Config not yet set! Please set this in the Pebble app!");
   }
 }
 
