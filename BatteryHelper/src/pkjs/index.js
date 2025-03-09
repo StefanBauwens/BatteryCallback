@@ -6,14 +6,18 @@ var clay = new Clay(clayConfig, null, {autoHandleEvents: false});
 var messageKeys = require('message_keys');
 var configOpen = false;
 
-const TIMEOUT_MS = 1000;
-
 var xhrRequest = function (url, type, body, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
-      console.log("status: " + xhr.status);
-      callback(xhr.status);
+        console.log("status: " + xhr.status);
+        callback(xhr.status);
     };
+    xhr.ontimeout = function (e) {
+        console.log("XHR Timeout")
+        callback(999);
+    };
+
+    xhr.timeout = 10000; // 10 seconds
     xhr.open(type, url);
     //xhr.send();
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -42,6 +46,8 @@ Pebble.addEventListener('appmessage',
             {
                 var configOpenInt = configOpen?1:0;
                 Pebble.sendAppMessage({postRequestSent: configOpenInt})
+            } else if (statusCode == 999) {
+                Pebble.sendAppMessage({httpError: "Timeout"});
             } else {
                 Pebble.sendAppMessage({httpError: statusCode});
             }
@@ -85,8 +91,6 @@ Pebble.addEventListener('webviewclosed',
         // Format as HH:MM (always 24-hour format)
         dict[messageKeys.fixedTime] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
     }
-
-    //dict[messageKeys.permissionToCloseApp] = 1; // tell the watch-app its safe to close now
 
     // Send settings values to watch side
     Pebble.sendAppMessage(dict, function(e) {
