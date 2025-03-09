@@ -46,6 +46,10 @@ static void quit_self() {
   window_stack_pop_all(true);
 }
 
+static void delayed_quit_self(void *context) {
+  quit_self();
+}
+
 // Read settings from persistent storage
 static void prv_load_settings() {
   // Load the default settings
@@ -114,7 +118,7 @@ static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
   {
     s_request_status = REQUEST_STATE_SEND_SUCCESSFUL;
     static char battery_text[46];
-    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Waiting for JS...", s_charge_state.charge_percent);
+    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Processing...", s_charge_state.charge_percent);
     text_layer_set_text(s_text_layer, battery_text);
   }
 }
@@ -136,7 +140,10 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
     if(!isConfigOpen){
       snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success!", s_charge_state.charge_percent);
       text_layer_set_text(s_text_layer, battery_text);
-      quit_self(); // only close when not in config.
+
+      // Also close the app when not in config
+      const int interval_ms = 500;
+      app_timer_register(interval_ms, delayed_quit_self, NULL); // we use a small delay so user can perceive the sent message.
     } else {
       snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success! You can close this now.", s_charge_state.charge_percent);
       text_layer_set_text(s_text_layer, battery_text);
