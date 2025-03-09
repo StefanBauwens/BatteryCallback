@@ -226,11 +226,16 @@ static void prv_window_load(Window *window) {
   text_layer_set_text_alignment(s_text_layer, GTextAlignmentCenter);
   text_layer_set_overflow_mode(s_text_layer, GTextOverflowModeWordWrap);
   layer_add_child(window_layer, text_layer_get_layer(s_text_layer));
-
+ 
   if (s_config_set) {
-    // Fixed opening or manual opening both cause a message to be sent
-    prv_get_battery_level();
-    s_request_status = REQUEST_STATE_WAIT_FOR_JS_READY;
+     if (launch_reason() == APP_LAUNCH_PHONE) {
+      // opening because setting config
+      text_layer_set_text(s_text_layer, "Open for configuration. (Close with back button when done)");
+     } else {
+      // Fixed opening or manual opening both cause a message to be sent
+      prv_get_battery_level();
+      s_request_status = REQUEST_STATE_WAIT_FOR_JS_READY;
+     }
   } else {
     text_layer_set_text(s_text_layer, "Config not yet set! Please set this in the Pebble app!");
   }
