@@ -3,8 +3,8 @@ This is a battery tool I created for the Rebble Hackaton #002.
 It gives you the possibility to (automatically) post your Pebble's battery status to a REST server.
 The payload is a JSON-formatted string that follows the same structure as BatteryStateService. (See https://developer.rebble.io/developer.pebble.com/docs/c/Foundation/Event_Service/BatteryStateService/index.html#BatteryChargeState)
 
-![Battery Callback app screenshot](BatteryCallback/screenshot3.png)
 <img src ="BatteryCallback/screenshot_config.png" width= 200 alt = "Battery Callback Phone Config screenshot">
+![Battery Callback app screenshot](BatteryCallback/screenshot3.png)
 
 ## Features:
 v1.0:
