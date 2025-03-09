@@ -64,8 +64,11 @@ static void prv_load_settings() {
 // Save the settings to persistent storage
 static void prv_save_settings() {
   persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
-  s_config_set = true;
-  text_layer_set_text(s_text_layer, "Config set! You can close this now.");
+  if (!s_config_set)
+  {
+    s_config_set = true;
+    text_layer_set_text(s_text_layer, "Config set! You can close this now.");
+  }
 }
 
 bool parse_time(const char *time_str, int8_t *hours, int8_t *minutes) {
