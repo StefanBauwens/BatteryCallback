@@ -64,8 +64,7 @@ static void prv_load_settings() {
 // Save the settings to persistent storage
 static void prv_save_settings() {
   persist_write_data(SETTINGS_KEY, &settings, sizeof(settings));
-  if (!s_config_set)
-  {
+  if (!s_config_set) {
     s_config_set = true;
     text_layer_set_text(s_text_layer, "Config set! You can close this now.");
   }
@@ -171,6 +170,7 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   
   Tuple *fixedTime_t = dict_find(iter, MESSAGE_KEY_fixedTime);
   if (fixedTime_t) {
+    settingsSet = true;
     char *time_str = fixedTime_t->value->cstring;  // Get time string "HH:MM"
     int8_t hours;
     int8_t minutes;
@@ -180,14 +180,12 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
       APP_LOG(APP_LOG_LEVEL_INFO, "Parsed time: %02d:%02d", hours, minutes);
       settings.FixedTimeHours = hours;
       settings.FixedTimeMinutes = minutes;
-      settingsSet = true;
     } else {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Failed to parse time string: %s", time_str);
     }
   }
   
-  if (settingsSet)
-  {
+  if (settingsSet) {
     prv_save_settings();
   }
 }
@@ -226,16 +224,12 @@ static void prv_window_load(Window *window) {
   text_layer_set_overflow_mode(s_text_layer, GTextOverflowModeWordWrap);
   layer_add_child(window_layer, text_layer_get_layer(s_text_layer));
 
-  if (s_config_set)
-  {
-    if (settings.SendWhenAppOpened || settings.SendAtFixedTime)
-    {
+  if (s_config_set) {
+    if (settings.SendWhenAppOpened || settings.SendAtFixedTime) {
       prv_get_battery_level();
       s_request_status = REQUEST_STATE_WAIT_FOR_JS_READY;
     }
-  }
-  else
-  {
+  } else {
     text_layer_set_text(s_text_layer, "Config not yet set! Please set this in the Pebble app!");
   }
 }
