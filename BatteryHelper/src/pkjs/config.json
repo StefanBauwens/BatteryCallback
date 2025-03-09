@@ -24,7 +24,7 @@
         "label": "Endpoint",
         "defaultValue": "",
         "attributes": {
-          "placeholder": "eg: localhost:1234"
+          "placeholder": "eg: http://localhost:1234"
         }
       },
       {
