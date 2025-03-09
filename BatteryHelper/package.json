@@ -25,7 +25,6 @@
       "watchface": false
     },
     "messageKeys": [
-      "sendAtFixedTime",
       "sendWhenBatteryChanged",
       "fixedTime",
       "endpoint",

@@ -33,9 +33,6 @@ static TextLayer *s_text_layer;
 // Initialize the default settings
 static void prv_default_settings() {
   settings.SendWhenBatteryChanged = false;
-  settings.SendAtFixedTime = false;
-  settings.FixedTimeHours = 0;
-  settings.FixedTimeMinutes = 0;
 }
 
 static bool comm_is_js_ready() {
@@ -163,29 +160,6 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   if (sendWhenBatteryChanged_t) {
     settings.SendWhenBatteryChanged = sendWhenBatteryChanged_t->value->int32;
     settingsSet = true;
-  }
-
-  Tuple *sendAtFixedTime_t = dict_find(iter, MESSAGE_KEY_sendAtFixedTime);
-  if (sendAtFixedTime_t) {
-    settings.SendAtFixedTime = sendAtFixedTime_t->value->int32;
-    settingsSet = true;
-  }
-  
-  Tuple *fixedTime_t = dict_find(iter, MESSAGE_KEY_fixedTime);
-  if (fixedTime_t) {
-    settingsSet = true;
-    char *time_str = fixedTime_t->value->cstring;  // Get time string "HH:MM"
-    int8_t hours;
-    int8_t minutes;
-    
-    // Parse "HH:MM" format
-    if(parse_time(time_str, &hours, &minutes)) {
-      APP_LOG(APP_LOG_LEVEL_INFO, "Parsed time: %02d:%02d", hours, minutes);
-      settings.FixedTimeHours = hours;
-      settings.FixedTimeMinutes = minutes;
-    } else {
-      APP_LOG(APP_LOG_LEVEL_ERROR, "Failed to parse time string: %s", time_str);
-    }
   }
   
   if (settingsSet) {

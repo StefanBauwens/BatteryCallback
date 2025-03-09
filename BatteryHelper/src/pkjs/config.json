@@ -29,28 +29,13 @@
       },  
       {
         "type": "text",
-        "defaultValue": "Besides sending on manual app open, you can use the following settings to automate sending the battery level."
+        "defaultValue": "Besides sending on manual app open, you can also choose here to send whenever the battery status changes."
       },
       {
         "type": "toggle",
         "messageKey": "sendWhenBatteryChanged",
         "label": "Send When Battery Changed",
         "defaultValue": false
-      },
-      {
-        "type": "toggle",
-        "messageKey": "sendAtFixedTime",
-        "label": "Send At Fixed Time",
-        "defaultValue": false
-      },
-      {
-        "type": "input",
-        "messageKey": "fixedTime",
-        "defaultValue": "",
-        "label": "Fixed Time",
-        "attributes": {
-          "type": "time"
-        }
       }
     ]
   },

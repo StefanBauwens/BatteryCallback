@@ -78,6 +78,7 @@ Pebble.addEventListener('webviewclosed',
     localStorage.setItem("ENDPOINT", dict[messageKeys.endpoint]); // store endpoint
 
     // handle everything sent as 24h string
+    /*
     var timeStr = dict[messageKeys.fixedTime]; //can be "2:30 PM" or "14:30" for example
     var match = timeStr.match(/(\d+):(\d+) ?(AM|PM)?/i);
 
@@ -94,7 +95,7 @@ Pebble.addEventListener('webviewclosed',
 
         // Format as HH:MM (always 24-hour format)
         dict[messageKeys.fixedTime] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
-    }
+    }*/
 
     // Send settings values to watch side
     Pebble.sendAppMessage(dict, function(e) {
@@ -103,7 +104,5 @@ Pebble.addEventListener('webviewclosed',
         console.log('Failed to send config data!');
         console.log(JSON.stringify(e));
     });
-
-    console.log("fixedTime: " + dict[messageKeys.fixedTime]);
   }
 );
