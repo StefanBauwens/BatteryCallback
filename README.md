@@ -4,7 +4,7 @@ It gives you the possibility to (automatically) post your Pebble's battery statu
 The payload is a JSON-formatted string that follows the same structure as BatteryStateService. (See https://developer.rebble.io/developer.pebble.com/docs/c/Foundation/Event_Service/BatteryStateService/index.html#BatteryChargeState)
 
 ![Battery Callback app screenshot](BatteryCallback/screenshot3.png)
-![Battery Callback Phone Config screenshot](BatteryCallback/screenshot_config.png)
+![Battery Callback Phone Config screenshot](BatteryCallback/screenshot_config.png | width=100)
 
 ## Features:
 v1.0:
@@ -14,8 +14,8 @@ v1.0:
 ## Ingration with Tasker
 ### Tasker as server
 Don't want to set up your own server for this endpoint? You can just use Tasker on your mobile phone with the HTTP-Request event. 
-Set the Method to POST and set the endpoint in the Battery Callback watch app settings to http://localhost:PORT (PORT being the port you specified in Tasker).
-From there you can create a Task that processes the %http_request_body. 
+Set the Method to `POST` and set the endpoint in the Battery Callback watch app settings to `http://localhost:PORT` (PORT being the port you specified in Tasker).
+From there you can create a Task that processes the `%http_request_body`. 
 
 ### Request battery stae
 You can also use Tasker to trigger a battery callback on demand! Using intents you can trigger the app to open on the watch, which will call the endpoint automatically.
