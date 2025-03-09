@@ -5,7 +5,11 @@
   }, 
   { 
     "type": "text", 
-    "defaultValue": "Created by Stefan Bauwens for the Rebble Hackathon 002" 
+    "defaultValue": "Created by Stefan Bauwens for the Rebble Hackathon 002." 
+  },
+  { 
+    "type": "text", 
+    "defaultValue": "For more info check the readme at https://github.com/StefanBauwens/BatteryCallback" 
   },
   {
     "type": "section",
