@@ -41,7 +41,7 @@ Pebble.addEventListener('appmessage',
             if (statusCode >= 200 && statusCode < 300)
             {
                 var configOpenInt = configOpen?1:0;
-                Pebble.sendAppMessage({'postRequestSent': configOpenInt})
+                Pebble.sendAppMessage({postRequestSent: configOpenInt})
             } else {
                 Pebble.sendAppMessage({httpError: statusCode});
             }

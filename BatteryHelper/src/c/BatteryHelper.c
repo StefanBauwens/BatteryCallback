@@ -132,7 +132,7 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
     s_permission_to_close = false; // we just opened the app so not yet ready to close
   }
 
-  Tuple *postRequestSent_t = dict_find(itern, MESSAGE_KEY_postRequestSent);
+  Tuple *postRequestSent_t = dict_find(iter, MESSAGE_KEY_postRequestSent);
   if (postRequestSent_t) {
     static char battery_text[64];
 
