@@ -190,6 +190,16 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   
   if (settingsSet) {
     prv_save_settings();
+    if (settings.SendWhenBatteryChanged) {
+      if (!app_worker_is_running()) {
+        AppWorkerResult result = app_worker_launch();
+        APP_LOG(APP_LOG_LEVEL_DEBUG, "Worker launch result %d", result);
+      }
+    } else { // stop worker
+      if (app_worker_is_running()) {
+        app_worker_kill();
+      }
+    }
   }
 }
 
