@@ -28,6 +28,10 @@
         }
       },  
       {
+        "type": "text",
+        "defaultValue": "Besides sending on manual app open, you can use these toggles to automate sending the battery level."
+      },
+      {
         "type": "toggle",
         "messageKey": "sendWhenBatteryChanged",
         "label": "Send When Battery Changed",
