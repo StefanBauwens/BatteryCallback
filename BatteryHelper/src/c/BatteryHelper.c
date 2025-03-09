@@ -132,13 +132,19 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
     s_permission_to_close = false; // we just opened the app so not yet ready to close
   }
 
-  Tuple *permissionToCloseApp_t = dict_find(iter, MESSAGE_KEY_permissionToCloseApp);
-  if (permissionToCloseApp_t) {
-    s_permission_to_close = true;
-    static char battery_text[46];
-    snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success!", s_charge_state.charge_percent);
-    text_layer_set_text(s_text_layer, battery_text);
-    quit_self();
+  Tuple *postRequestSent_t = dict_find(itern, MESSAGE_KEY_postRequestSent);
+  if (postRequestSent_t) {
+    static char battery_text[64];
+
+    bool isConfigOpen = postRequestSent_t->value->int32;
+    if(!isConfigOpen){
+      snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success!", s_charge_state.charge_percent);
+      text_layer_set_text(s_text_layer, battery_text);
+      quit_self(); // only close when not in config.
+    } else {
+      snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success! (Close app with back button)", s_charge_state.charge_percent);
+      text_layer_set_text(s_text_layer, battery_text);
+    }
   }
 
   Tuple *httpError_t = dict_find(iter, MESSAGE_KEY_httpError);

@@ -32,7 +32,7 @@
       "endpoint",
       "JSReady",
       "battery",
-      "permissionToCloseApp",
+      "postRequestSent",
       "httpError"
     ],
     "resources": {

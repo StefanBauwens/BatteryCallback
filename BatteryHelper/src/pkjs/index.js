@@ -40,10 +40,8 @@ Pebble.addEventListener('appmessage',
         xhrRequest(endpoint, "POST", dict, function(statusCode) {
             if (statusCode >= 200 && statusCode < 300)
             {
-                if (!configOpen) // don't close app if config is open
-                {
-                    Pebble.sendAppMessage({permissionToCloseApp: 1});
-                }
+                var configOpenInt = configOpen?1:0;
+                Pebble.sendAppMessage({'postRequestSent': configOpenInt})
             } else {
                 Pebble.sendAppMessage({httpError: statusCode});
             }
@@ -88,7 +86,7 @@ Pebble.addEventListener('webviewclosed',
         dict[messageKeys.fixedTime] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
     }
 
-    dict[messageKeys.permissionToCloseApp] = 1; // tell the watch-app its safe to close now
+    //dict[messageKeys.permissionToCloseApp] = 1; // tell the watch-app its safe to close now
 
     // Send settings values to watch side
     Pebble.sendAppMessage(dict, function(e) {
