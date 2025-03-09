@@ -4,6 +4,7 @@ It gives you the possibility to (automatically) post your Pebble's battery statu
 The payload is a JSON-formatted string that follows the same structure as BatteryStateService. (See https://developer.rebble.io/developer.pebble.com/docs/c/Foundation/Event_Service/BatteryStateService/index.html#BatteryChargeState)
 
 <img src ="BatteryCallback/screenshot_config.png" width= 200 alt = "Battery Callback Phone Config screenshot">
+
 ![Battery Callback app screenshot](BatteryCallback/screenshot3.png)
 
 ## Features:
