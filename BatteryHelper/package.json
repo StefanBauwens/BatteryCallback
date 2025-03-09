@@ -25,10 +25,9 @@
       "watchface": false
     },
     "messageKeys": [
-      "sendWhenBatteryChanged",
-      "fixedTime",
-      "endpoint",
       "JSReady",
+      "sendWhenBatteryChanged",
+      "endpoint",
       "httpError",
       "postRequestSent",
       "charge_percent",

@@ -8,14 +8,11 @@
 
 #include <pebble.h>
 
-static void send_with_timeout(int key, int value);
+static void send_battery_charge_state_with_timeout();
 static void timeout_timer_handler(void *context);
 
 typedef struct ClaySettings {
   bool SendWhenBatteryChanged;
-  bool SendAtFixedTime;
-  int8_t FixedTimeHours;
-  int8_t FixedTimeMinutes;
 } ClaySettings;
 
 static ClaySettings settings;
@@ -259,9 +256,6 @@ static void prv_deinit(void) {
 
 int main(void) {
   prv_init();
-
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", s_window);
-
   app_event_loop();
   prv_deinit();
 }
