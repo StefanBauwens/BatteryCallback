@@ -125,6 +125,7 @@ static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
 
 // AppMessage receive handler
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
+  bool settingsSet = false;
 
   Tuple *ready_t = dict_find(iter, MESSAGE_KEY_JSReady);
   if (ready_t) {
@@ -153,16 +154,19 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   Tuple *sendWhenAppOpened_t = dict_find(iter, MESSAGE_KEY_sendWhenAppOpened);
   if (sendWhenAppOpened_t) {
     settings.SendWhenAppOpened = sendWhenAppOpened_t->value->int32;
+    settingsSet = true;
   }
 
   Tuple *sendWhenBatteryChanged_t = dict_find(iter, MESSAGE_KEY_sendWhenBatteryChanged);
   if (sendWhenBatteryChanged_t) {
     settings.SendWhenBatteryChanged = sendWhenBatteryChanged_t->value->int32;
+    settingsSet = true;
   }
 
   Tuple *sendAtFixedTime_t = dict_find(iter, MESSAGE_KEY_sendAtFixedTime);
   if (sendAtFixedTime_t) {
     settings.SendAtFixedTime = sendAtFixedTime_t->value->int32;
+    settingsSet = true;
   }
   
   Tuple *fixedTime_t = dict_find(iter, MESSAGE_KEY_fixedTime);
@@ -176,12 +180,16 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
       APP_LOG(APP_LOG_LEVEL_INFO, "Parsed time: %02d:%02d", hours, minutes);
       settings.FixedTimeHours = hours;
       settings.FixedTimeMinutes = minutes;
+      settingsSet = true;
     } else {
       APP_LOG(APP_LOG_LEVEL_ERROR, "Failed to parse time string: %s", time_str);
     }
   }
   
-  prv_save_settings();
+  if (settingsSet)
+  {
+    prv_save_settings();
+  }
 }
 
 static void update(struct tm *tick_time, TimeUnits units_changed) { // runs every second 
