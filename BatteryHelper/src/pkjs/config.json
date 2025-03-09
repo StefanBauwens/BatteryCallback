@@ -26,13 +26,7 @@
         "attributes": {
           "placeholder": "eg: http://localhost:1234"
         }
-      },
-      {
-        "type": "toggle",
-        "messageKey": "sendWhenAppOpened",
-        "label": "Send When App Opened",
-        "defaultValue": true
-      },     
+      },  
       {
         "type": "toggle",
         "messageKey": "sendWhenBatteryChanged",

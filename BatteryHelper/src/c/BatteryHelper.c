@@ -12,7 +12,6 @@ static void send_with_timeout(int key, int value);
 static void timeout_timer_handler(void *context);
 
 typedef struct ClaySettings {
-  bool SendWhenAppOpened;
   bool SendWhenBatteryChanged;
   bool SendAtFixedTime;
   int8_t FixedTimeHours;
@@ -33,7 +32,6 @@ static TextLayer *s_text_layer;
 
 // Initialize the default settings
 static void prv_default_settings() {
-  settings.SendWhenAppOpened = true;
   settings.SendWhenBatteryChanged = false;
   settings.SendAtFixedTime = false;
   settings.FixedTimeHours = 0;
@@ -140,7 +138,7 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
       text_layer_set_text(s_text_layer, battery_text);
       quit_self(); // only close when not in config.
     } else {
-      snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success! (Close app with back button)", s_charge_state.charge_percent);
+      snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success! You can close this now.", s_charge_state.charge_percent);
       text_layer_set_text(s_text_layer, battery_text);
     }
   }
@@ -152,12 +150,6 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
     int statusCode = httpError_t->value->int32;
     snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Fail! %d", s_charge_state.charge_percent, statusCode);
     text_layer_set_text(s_text_layer, battery_text);
-  }
-  
-  Tuple *sendWhenAppOpened_t = dict_find(iter, MESSAGE_KEY_sendWhenAppOpened);
-  if (sendWhenAppOpened_t) {
-    settings.SendWhenAppOpened = sendWhenAppOpened_t->value->int32;
-    settingsSet = true;
   }
 
   Tuple *sendWhenBatteryChanged_t = dict_find(iter, MESSAGE_KEY_sendWhenBatteryChanged);
@@ -229,10 +221,9 @@ static void prv_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_text_layer));
 
   if (s_config_set) {
-    if (settings.SendWhenAppOpened || settings.SendAtFixedTime) {
-      prv_get_battery_level();
-      s_request_status = REQUEST_STATE_WAIT_FOR_JS_READY;
-    }
+    // Fixed opening or manual opening both cause a message to be sent
+    prv_get_battery_level();
+    s_request_status = REQUEST_STATE_WAIT_FOR_JS_READY;
   } else {
     text_layer_set_text(s_text_layer, "Config not yet set! Please set this in the Pebble app!");
   }
