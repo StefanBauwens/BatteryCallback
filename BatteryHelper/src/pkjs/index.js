@@ -8,6 +8,7 @@ var configOpen = false;
 
 var xhrRequest = function (url, type, body, callback) {
     var xhr = new XMLHttpRequest();
+    xhr.open(type, url);
     xhr.onload = function () {
         console.log("status: " + xhr.status);
         callback(xhr.status);
@@ -17,9 +18,7 @@ var xhrRequest = function (url, type, body, callback) {
         callback(999);
     };
 
-    xhr.timeout = 10000; // 10 seconds
-    xhr.open(type, url);
-    //xhr.send();
+    xhr.timeout = 5000; // 10 seconds
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(body));
 };
@@ -49,7 +48,7 @@ Pebble.addEventListener('appmessage',
             } else if (statusCode == 999) {
                 Pebble.sendAppMessage({httpError: "Timeout"});
             } else {
-                Pebble.sendAppMessage({httpError: statusCode});
+                Pebble.sendAppMessage({httpError: statusCode + ""});
             }
         });
     }
