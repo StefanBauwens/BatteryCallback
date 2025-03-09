@@ -27,7 +27,9 @@ Discarded input sections
                 0x0000000000000000        0x4 aplite/src/resource_ids.auto.c.37.o
  .text          0x0000000000000000        0x0 src/message_keys.auto.c.37.o
  .bss           0x0000000000000000        0x0 src/message_keys.auto.c.37.o
- .data.MESSAGE_KEY_battery
+ .data.MESSAGE_KEY_charge_percent
+                0x0000000000000000        0x4 src/message_keys.auto.c.37.o
+ .data.MESSAGE_KEY_is_plugged
                 0x0000000000000000        0x4 src/message_keys.auto.c.37.o
  .data.MESSAGE_KEY_httpError
                 0x0000000000000000        0x4 src/message_keys.auto.c.37.o
@@ -37,9 +39,9 @@ Discarded input sections
                 0x0000000000000000        0x4 src/message_keys.auto.c.37.o
  .data.MESSAGE_KEY_sendWhenBatteryChanged
                 0x0000000000000000        0x4 src/message_keys.auto.c.37.o
- .data.MESSAGE_KEY_fixedTime
-                0x0000000000000000        0x4 src/message_keys.auto.c.37.o
  .data.MESSAGE_KEY_endpoint
+                0x0000000000000000        0x4 src/message_keys.auto.c.37.o
+ .data.MESSAGE_KEY_is_charging
                 0x0000000000000000        0x4 src/message_keys.auto.c.37.o
  .bss           0x0000000000000000        0x0 /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.accel_data_service_subscribe__deprecated
@@ -1358,11 +1360,11 @@ OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryHelper/build/aplite/pe
  .comment       0x0000000000000000       0x4f src/message_keys.auto.c.37.o
  .comment       0x0000000000000000       0x4f /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
 
-.debug_info     0x0000000000000000      0x6c7
+.debug_info     0x0000000000000000      0x6d9
  .debug_info    0x0000000000000000      0x23f worker_src/c/worker.c.37.o
  .debug_info    0x000000000000023f      0x31a aplite/appinfo.auto.c.37.o
  .debug_info    0x0000000000000559       0x81 aplite/src/resource_ids.auto.c.37.o
- .debug_info    0x00000000000005da       0xed src/message_keys.auto.c.37.o
+ .debug_info    0x00000000000005da       0xff src/message_keys.auto.c.37.o
 
 .debug_abbrev   0x0000000000000000      0x28b
  .debug_abbrev  0x0000000000000000      0x165 worker_src/c/worker.c.37.o
@@ -1392,15 +1394,15 @@ OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryHelper/build/aplite/pe
  .debug_line    0x0000000000000272       0xd0 aplite/src/resource_ids.auto.c.37.o
  .debug_line    0x0000000000000342       0xc9 src/message_keys.auto.c.37.o
 
-.debug_str      0x0000000000000000      0x565
- .debug_str     0x0000000000000000      0x229 worker_src/c/worker.c.37.o
+.debug_str      0x0000000000000000      0x55f
+ .debug_str     0x0000000000000000      0x203 worker_src/c/worker.c.37.o
                                         0x262 (size before relaxing)
- .debug_str     0x0000000000000229      0x248 aplite/appinfo.auto.c.37.o
+ .debug_str     0x0000000000000203      0x248 aplite/appinfo.auto.c.37.o
                                         0x32e (size before relaxing)
- .debug_str     0x0000000000000471       0x34 aplite/src/resource_ids.auto.c.37.o
+ .debug_str     0x000000000000044b       0x34 aplite/src/resource_ids.auto.c.37.o
                                         0x10d (size before relaxing)
- .debug_str     0x00000000000004a5       0xc0 src/message_keys.auto.c.37.o
-                                        0x199 (size before relaxing)
+ .debug_str     0x000000000000047f       0xe0 src/message_keys.auto.c.37.o
+                                        0x1b9 (size before relaxing)
 
 .debug_frame    0x0000000000000000       0x44
  .debug_frame   0x0000000000000000       0x44 worker_src/c/worker.c.37.o

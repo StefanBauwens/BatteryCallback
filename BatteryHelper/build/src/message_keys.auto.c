@@ -6,10 +6,11 @@
 // DO NOT MODIFY - CHANGES WILL BE OVERWRITTEN
 //
 
-uint32_t MESSAGE_KEY_JSReady = 10003;
-uint32_t MESSAGE_KEY_battery = 10004;
+uint32_t MESSAGE_KEY_JSReady = 10000;
+uint32_t MESSAGE_KEY_charge_percent = 10005;
 uint32_t MESSAGE_KEY_endpoint = 10002;
-uint32_t MESSAGE_KEY_fixedTime = 10001;
-uint32_t MESSAGE_KEY_httpError = 10005;
-uint32_t MESSAGE_KEY_postRequestSent = 10006;
-uint32_t MESSAGE_KEY_sendWhenBatteryChanged = 10000;
+uint32_t MESSAGE_KEY_httpError = 10003;
+uint32_t MESSAGE_KEY_is_charging = 10006;
+uint32_t MESSAGE_KEY_is_plugged = 10007;
+uint32_t MESSAGE_KEY_postRequestSent = 10004;
+uint32_t MESSAGE_KEY_sendWhenBatteryChanged = 10001;

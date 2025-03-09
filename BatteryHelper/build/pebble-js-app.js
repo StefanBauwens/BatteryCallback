@@ -121,9 +121,9 @@
 	  function(e) {
 	    var dict = e.payload;
 	    console.log('Got message: ' + JSON.stringify(dict));
-	    if (dict["battery"])
+	    if (dict["charge_percent"])
 	    {
-	        console.log(dict["battery"]);
+	        console.log(dict["charge_percent"]);
 	        var endpoint = localStorage.getItem("ENDPOINT");
 	        xhrRequest(endpoint, "POST", dict, function(statusCode) {
 	            if (statusCode >= 200 && statusCode < 300)
@@ -225,13 +225,13 @@
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = {"JSReady":10003,"battery":10004,"endpoint":10002,"fixedTime":10001,"httpError":10005,"postRequestSent":10006,"sendWhenBatteryChanged":10000}
+	module.exports = {"JSReady":10000,"charge_percent":10005,"endpoint":10002,"httpError":10003,"is_charging":10006,"is_plugged":10007,"postRequestSent":10004,"sendWhenBatteryChanged":10001}
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-	module.exports = [{"type":"heading","defaultValue":"Battery Callback"},{"type":"text","defaultValue":"Created by Stefan Bauwens for the Rebble Hackathon 002"},{"type":"section","items":[{"type":"heading","defaultValue":"Settings"},{"type":"text","defaultValue":"The REST endpoint the app should POST to with the battery level"},{"type":"input","messageKey":"endpoint","label":"Endpoint","defaultValue":"","attributes":{"placeholder":"eg: http://localhost:1234"}},{"type":"text","defaultValue":"Besides sending on manual app open, you can also choose here to send whenever the battery status changes."},{"type":"toggle","messageKey":"sendWhenBatteryChanged","label":"Send When Battery Changed","defaultValue":false}]},{"type":"submit","defaultValue":"Save"}]
+	module.exports = [{"type":"heading","defaultValue":"Battery Callback"},{"type":"text","defaultValue":"Created by Stefan Bauwens for the Rebble Hackathon 002"},{"type":"section","items":[{"type":"heading","defaultValue":"Settings"},{"type":"text","defaultValue":"The REST endpoint the app will POST to with the JSON-formatted BatteryChargeState"},{"type":"input","messageKey":"endpoint","label":"Endpoint","defaultValue":"","attributes":{"placeholder":"eg: http://localhost:1234"}},{"type":"text","defaultValue":"Besides sending on manual app open, you can also choose here to send whenever the battery charge state changes."},{"type":"toggle","messageKey":"sendWhenBatteryChanged","label":"Send When Battery Changed","defaultValue":false}]},{"type":"submit","defaultValue":"Save"}]
 
 /***/ })
 /******/ ]);

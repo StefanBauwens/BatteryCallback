@@ -88,14 +88,15 @@ static void timeout_timer_handler(void *context) {
 }
 
 static void send_battery_charge_state_with_timeout() {
-  s_last_key = key;
-  s_last_value = value;
   // Construct and send the message
   DictionaryIterator *iter;
   if(app_message_outbox_begin(&iter) == APP_MSG_OK) {
-    dict_write_int(iter, MESSAGE_KEY_charge_percent, s_charge_state.charge_percent, sizeof(int), true);
-    dict_write_int(iter, MESSAGE_KEY_is_charging, s_charge_state.MESSAGE_KEY_is_charging, sizeof(int), true);
-    dict_write_int(iter, MESSAGE_KEY_is_plugged, s_charge_state.MESSAGE_KEY_is_plugged, sizeof(int), true);
+    int charge_percent = s_charge_state.charge_percent;
+    int is_charging = s_charge_state.is_charging ? 1 : 0;
+    int is_plugged = s_charge_state.is_plugged ? 1 : 0;
+    dict_write_int(iter, MESSAGE_KEY_charge_percent, &charge_percent, sizeof(int), true);
+    dict_write_int(iter, MESSAGE_KEY_is_charging, &is_charging, sizeof(int), true);
+    dict_write_int(iter, MESSAGE_KEY_is_plugged, &is_plugged, sizeof(int), true);
     app_message_outbox_send();
   }
 
