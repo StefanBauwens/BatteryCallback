@@ -1235,7 +1235,7 @@ LOAD aplite/appinfo.auto.c.37.o
 LOAD aplite/src/resource_ids.auto.c.37.o
 LOAD src/message_keys.auto.c.37.o
 LOAD /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a
-LOAD /home/rebble/Documents/GitHub/BatteryHelper/BatteryHelper/node_modules/pebble-clay/dist/binaries/aplite/libpebble-clay.a
+LOAD /home/rebble/Documents/GitHub/BatteryHelper/BatteryCallback/node_modules/pebble-clay/dist/binaries/aplite/libpebble-clay.a
 START GROUP
 LOAD /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/libgcc.a
 LOAD /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/../../../../arm-none-eabi/lib/thumb2/libc.a
@@ -1328,7 +1328,7 @@ DISCARD
  libm.a(*)
  libgcc.a(*)
  *(.eh_frame)
-OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryHelper/build/aplite/pebble-worker.elf elf32-littlearm)
+OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryCallback/build/aplite/pebble-worker.elf elf32-littlearm)
 
 .ARM.attributes
                 0x0000000000000000       0x27
@@ -1394,15 +1394,15 @@ OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryHelper/build/aplite/pe
  .debug_line    0x0000000000000272       0xd0 aplite/src/resource_ids.auto.c.37.o
  .debug_line    0x0000000000000342       0xc9 src/message_keys.auto.c.37.o
 
-.debug_str      0x0000000000000000      0x55f
- .debug_str     0x0000000000000000      0x203 worker_src/c/worker.c.37.o
-                                        0x262 (size before relaxing)
- .debug_str     0x0000000000000203      0x248 aplite/appinfo.auto.c.37.o
-                                        0x32e (size before relaxing)
- .debug_str     0x000000000000044b       0x34 aplite/src/resource_ids.auto.c.37.o
-                                        0x10d (size before relaxing)
- .debug_str     0x000000000000047f       0xe0 src/message_keys.auto.c.37.o
-                                        0x1b9 (size before relaxing)
+.debug_str      0x0000000000000000      0x561
+ .debug_str     0x0000000000000000      0x205 worker_src/c/worker.c.37.o
+                                        0x264 (size before relaxing)
+ .debug_str     0x0000000000000205      0x248 aplite/appinfo.auto.c.37.o
+                                        0x330 (size before relaxing)
+ .debug_str     0x000000000000044d       0x34 aplite/src/resource_ids.auto.c.37.o
+                                        0x10f (size before relaxing)
+ .debug_str     0x0000000000000481       0xe0 src/message_keys.auto.c.37.o
+                                        0x1bb (size before relaxing)
 
 .debug_frame    0x0000000000000000       0x44
  .debug_frame   0x0000000000000000       0x44 worker_src/c/worker.c.37.o

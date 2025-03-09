@@ -123,7 +123,10 @@
 	    console.log('Got message: ' + JSON.stringify(dict));
 	    if (dict["charge_percent"])
 	    {
-	        console.log(dict["charge_percent"]);
+	        // fix bool data
+	        dict["is_charging"] = dict["is_charging"] == 1;
+	        dict["is_plugged"] = dict["is_plugged"] == 1;
+	
 	        var endpoint = localStorage.getItem("ENDPOINT");
 	        xhrRequest(endpoint, "POST", dict, function(statusCode) {
 	            if (statusCode >= 200 && statusCode < 300)
@@ -231,7 +234,7 @@
 /* 6 */
 /***/ (function(module, exports) {
 
-	module.exports = [{"type":"heading","defaultValue":"Battery Callback"},{"type":"text","defaultValue":"Created by Stefan Bauwens for the Rebble Hackathon 002"},{"type":"section","items":[{"type":"heading","defaultValue":"Settings"},{"type":"text","defaultValue":"The REST endpoint the app will POST to with the JSON-formatted BatteryChargeState"},{"type":"input","messageKey":"endpoint","label":"Endpoint","defaultValue":"","attributes":{"placeholder":"eg: http://localhost:1234"}},{"type":"text","defaultValue":"Besides sending on manual app open, you can also choose here to send whenever the battery charge state changes."},{"type":"toggle","messageKey":"sendWhenBatteryChanged","label":"Send When Battery Changed","defaultValue":false}]},{"type":"submit","defaultValue":"Save"}]
+	module.exports = [{"type":"heading","defaultValue":"Battery Callback"},{"type":"text","defaultValue":"Created by Stefan Bauwens for the Rebble Hackathon 002."},{"type":"text","defaultValue":"For more info check the readme at https://github.com/StefanBauwens/BatteryCallback"},{"type":"section","items":[{"type":"heading","defaultValue":"Settings"},{"type":"text","defaultValue":"The REST endpoint the app will POST to with the JSON-formatted BatteryChargeState"},{"type":"input","messageKey":"endpoint","label":"Endpoint","defaultValue":"","attributes":{"placeholder":"eg: http://localhost:1234"}},{"type":"text","defaultValue":"Besides sending on manual app open, you can also choose here to send whenever the battery charge state changes."},{"type":"toggle","messageKey":"sendWhenBatteryChanged","label":"Send When Battery Changed","defaultValue":false}]},{"type":"submit","defaultValue":"Save"}]
 
 /***/ })
 /******/ ]);
