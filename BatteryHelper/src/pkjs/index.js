@@ -4,6 +4,7 @@ var clayConfig = require('./config.json');
 // default config
 var clay = new Clay(clayConfig, null, {autoHandleEvents: false});
 var messageKeys = require('message_keys');
+var configOpen = false;
 
 const TIMEOUT_MS = 1000;
 
@@ -39,7 +40,10 @@ Pebble.addEventListener('appmessage',
         xhrRequest(endpoint, "POST", dict, function(statusCode) {
             if (statusCode >= 200 && statusCode < 300)
             {
-                Pebble.sendAppMessage({permissionToCloseApp: 1});
+                if (!configOpen) // don't close app if config is open
+                {
+                    Pebble.sendAppMessage({permissionToCloseApp: 1});
+                }
             } else {
                 Pebble.sendAppMessage({httpError: statusCode});
             }
@@ -51,6 +55,7 @@ Pebble.addEventListener('appmessage',
 Pebble.addEventListener('showConfiguration', //we need to implement this since we are overriding events in webviewclosed
   function(e) {
     clay.config = clayConfig;
+    configOpen = true;
     Pebble.openURL(clay.generateUrl());
 });
 
@@ -59,6 +64,7 @@ Pebble.addEventListener('webviewclosed',
     function(e) {
     if (e && !e.response) { return; }
   
+    configOpen = false;
     var dict = clay.getSettings(e.response);
 
     localStorage.setItem("ENDPOINT", dict[messageKeys.endpoint]); // store endpoint
