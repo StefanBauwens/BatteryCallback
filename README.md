@@ -5,6 +5,7 @@ The payload is a JSON-formatted string that follows the same structure as Batter
 
 <img src ="BatteryCallback/screenshot_config.png" width= 200 alt = "Battery Callback Phone Config screenshot">
 
+![Battery Callback app screenshot](BatteryCallback/screenshot2.png)
 ![Battery Callback app screenshot](BatteryCallback/screenshot3.png)
 
 ## Features:
