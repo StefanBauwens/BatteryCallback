@@ -29,9 +29,11 @@
       "fixedTime",
       "endpoint",
       "JSReady",
-      "battery",
       "httpError",
-      "postRequestSent"
+      "postRequestSent",
+      "charge_percent",
+      "is_charging",
+      "is_plugged"
     ],
     "resources": {
       "media": [

@@ -24,8 +24,6 @@ static bool s_config_set;
 static int8_t s_request_status;
 static BatteryChargeState s_charge_state;
 static AppTimer *s_timeout_timer;
-static int s_last_key;
-static int s_last_value;
 
 static Window *s_window;
 static TextLayer *s_text_layer;
@@ -89,16 +87,18 @@ bool parse_time(const char *time_str, int8_t *hours, int8_t *minutes) {
 static void timeout_timer_handler(void *context) {
   // The timer elapsed because no success was reported
   // Retry the message
-  send_with_timeout(s_last_key, s_last_value);
+  send_battery_charge_state_with_timeout();
 }
 
-static void send_with_timeout(int key, int value) {
+static void send_battery_charge_state_with_timeout() {
   s_last_key = key;
   s_last_value = value;
   // Construct and send the message
   DictionaryIterator *iter;
   if(app_message_outbox_begin(&iter) == APP_MSG_OK) {
-    dict_write_int(iter, key, &value, sizeof(int), true);
+    dict_write_int(iter, MESSAGE_KEY_charge_percent, s_charge_state.charge_percent, sizeof(int), true);
+    dict_write_int(iter, MESSAGE_KEY_is_charging, s_charge_state.MESSAGE_KEY_is_charging, sizeof(int), true);
+    dict_write_int(iter, MESSAGE_KEY_is_plugged, s_charge_state.MESSAGE_KEY_is_plugged, sizeof(int), true);
     app_message_outbox_send();
   }
 
@@ -186,8 +186,9 @@ static void update(struct tm *tick_time, TimeUnits units_changed) { // runs ever
       s_request_status = REQUEST_STATE_SEND_BATTERY_LEVEL;
       snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Sending...", s_charge_state.charge_percent);
       text_layer_set_text(s_text_layer, battery_text);
-      // tell js to send the level to endpoint
-      send_with_timeout(MESSAGE_KEY_battery, s_charge_state.charge_percent);
+
+      // tell js to send the charge state
+      send_battery_charge_state_with_timeout();
     }
     else
     {

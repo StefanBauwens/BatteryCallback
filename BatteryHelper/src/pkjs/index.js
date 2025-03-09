@@ -41,9 +41,9 @@ Pebble.addEventListener('appmessage',
   function(e) {
     var dict = e.payload;
     console.log('Got message: ' + JSON.stringify(dict));
-    if (dict["battery"])
+    if (dict["charge_percent"])
     {
-        console.log(dict["battery"]);
+        console.log(dict["charge_percent"]);
         var endpoint = localStorage.getItem("ENDPOINT");
         xhrRequest(endpoint, "POST", dict, function(statusCode) {
             if (statusCode >= 200 && statusCode < 300)

@@ -16,7 +16,7 @@
       },
       {
         "type": "text",
-        "defaultValue": "The REST endpoint the app should POST to with the battery level"
+        "defaultValue": "The REST endpoint the app will POST to with the JSON-formatted BatteryChargeState"
       },
       {
         "type": "input",
@@ -29,7 +29,7 @@
       },  
       {
         "type": "text",
-        "defaultValue": "Besides sending on manual app open, you can also choose here to send whenever the battery status changes."
+        "defaultValue": "Besides sending on manual app open, you can also choose here to send whenever the battery charge state changes."
       },
       {
         "type": "toggle",
