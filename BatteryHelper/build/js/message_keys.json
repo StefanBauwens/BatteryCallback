@@ -1,10 +1,9 @@
 {
-    "JSReady": 10004,
-    "battery": 10005,
-    "endpoint": 10003,
-    "fixedTime": 10002,
-    "httpError": 10006,
-    "postRequestSent": 10007,
-    "sendAtFixedTime": 10000,
-    "sendWhenBatteryChanged": 10001
+    "JSReady": 10003,
+    "battery": 10004,
+    "endpoint": 10002,
+    "fixedTime": 10001,
+    "httpError": 10005,
+    "postRequestSent": 10006,
+    "sendWhenBatteryChanged": 10000
 }

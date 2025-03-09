@@ -158,6 +158,7 @@
 	    localStorage.setItem("ENDPOINT", dict[messageKeys.endpoint]); // store endpoint
 	
 	    // handle everything sent as 24h string
+	    /*
 	    var timeStr = dict[messageKeys.fixedTime]; //can be "2:30 PM" or "14:30" for example
 	    var match = timeStr.match(/(\d+):(\d+) ?(AM|PM)?/i);
 	
@@ -174,7 +175,7 @@
 	
 	        // Format as HH:MM (always 24-hour format)
 	        dict[messageKeys.fixedTime] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
-	    }
+	    }*/
 	
 	    // Send settings values to watch side
 	    Pebble.sendAppMessage(dict, function(e) {
@@ -183,8 +184,6 @@
 	        console.log('Failed to send config data!');
 	        console.log(JSON.stringify(e));
 	    });
-	
-	    console.log("fixedTime: " + dict[messageKeys.fixedTime]);
 	  }
 	);
 
@@ -226,13 +225,13 @@
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = {"JSReady":10004,"battery":10005,"endpoint":10003,"fixedTime":10002,"httpError":10006,"postRequestSent":10007,"sendAtFixedTime":10000,"sendWhenBatteryChanged":10001}
+	module.exports = {"JSReady":10003,"battery":10004,"endpoint":10002,"fixedTime":10001,"httpError":10005,"postRequestSent":10006,"sendWhenBatteryChanged":10000}
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-	module.exports = [{"type":"heading","defaultValue":"Battery Callback"},{"type":"text","defaultValue":"Created by Stefan Bauwens for the Rebble Hackathon 002"},{"type":"section","items":[{"type":"heading","defaultValue":"Settings"},{"type":"text","defaultValue":"The REST endpoint the app should POST to with the battery level"},{"type":"input","messageKey":"endpoint","label":"Endpoint","defaultValue":"","attributes":{"placeholder":"eg: http://localhost:1234"}},{"type":"text","defaultValue":"Besides sending on manual app open, you can use the following settings to automate sending the battery level."},{"type":"toggle","messageKey":"sendWhenBatteryChanged","label":"Send When Battery Changed","defaultValue":false},{"type":"toggle","messageKey":"sendAtFixedTime","label":"Send At Fixed Time","defaultValue":false},{"type":"input","messageKey":"fixedTime","defaultValue":"","label":"Fixed Time","attributes":{"type":"time"}}]},{"type":"submit","defaultValue":"Save"}]
+	module.exports = [{"type":"heading","defaultValue":"Battery Callback"},{"type":"text","defaultValue":"Created by Stefan Bauwens for the Rebble Hackathon 002"},{"type":"section","items":[{"type":"heading","defaultValue":"Settings"},{"type":"text","defaultValue":"The REST endpoint the app should POST to with the battery level"},{"type":"input","messageKey":"endpoint","label":"Endpoint","defaultValue":"","attributes":{"placeholder":"eg: http://localhost:1234"}},{"type":"text","defaultValue":"Besides sending on manual app open, you can also choose here to send whenever the battery status changes."},{"type":"toggle","messageKey":"sendWhenBatteryChanged","label":"Send When Battery Changed","defaultValue":false}]},{"type":"submit","defaultValue":"Save"}]
 
 /***/ })
 /******/ ]);
