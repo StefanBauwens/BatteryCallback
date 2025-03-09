@@ -89,16 +89,21 @@
 	var xhrRequest = function (url, type, body, callback) {
 	    var xhr = new XMLHttpRequest();
 	    xhr.open(type, url);
+	    
+	    // Manual timeout handling
+	    var timeout = 10000; // 10 sec
+	    var timeoutHandle = setTimeout(function () {
+	        console.log('Request timed out after ' + timeout + 'ms');
+	        xhr.abort(); // Abort the request manually
+	        callback(999);
+	    }, timeout);
+	    
 	    xhr.onload = function () {
+	        clearTimeout(timeoutHandle); // clear timeout since request completed
 	        console.log("status: " + xhr.status);
 	        callback(xhr.status);
 	    };
-	    xhr.ontimeout = function (e) {
-	        console.log("XHR Timeout")
-	        callback(999);
-	    };
 	
-	    xhr.timeout = 5000; // 10 seconds
 	    xhr.setRequestHeader("Content-Type", "application/json");
 	    xhr.send(JSON.stringify(body));
 	};

@@ -145,7 +145,7 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
       const int interval_ms = 500;
       app_timer_register(interval_ms, delayed_quit_self, NULL); // we use a small delay so user can perceive the sent message.
     } else {
-      snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success! You can close this now.", s_charge_state.charge_percent);
+      snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Success! (Close with back button)", s_charge_state.charge_percent);
       text_layer_set_text(s_text_layer, battery_text);
     }
   }
@@ -221,7 +221,7 @@ static void prv_window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
 
-  s_text_layer = text_layer_create(GRect(0, 72, bounds.size.w, 50));
+  s_text_layer = text_layer_create(GRect(0, 60, bounds.size.w, 50));
   text_layer_set_text(s_text_layer, "Fetching battery...");
   text_layer_set_text_alignment(s_text_layer, GTextAlignmentCenter);
   text_layer_set_overflow_mode(s_text_layer, GTextOverflowModeWordWrap);
