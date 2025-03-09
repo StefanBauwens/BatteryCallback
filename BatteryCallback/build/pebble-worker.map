@@ -130,8 +130,6 @@ Discarded input sections
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.atoi     0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.atol     0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
- .text.battery_state_service_peek
-                0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.bitmap_layer_create
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.bitmap_layer_destroy
@@ -388,8 +386,6 @@ Discarded input sections
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.persist_delete
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
- .text.persist_exists
-                0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.persist_get_size
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.persist_read_bool
@@ -622,11 +618,7 @@ Discarded input sections
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.dict_serialize_tuplets_to_buffer
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
- .text.persist_read_data
-                0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.persist_read_string
-                0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
- .text.persist_write_data
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.dict_size
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
@@ -1256,72 +1248,86 @@ LOAD /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/
  .note.gnu.build-id
                 0x0000000000000084       0x24 linker stubs
 
-.text           0x00000000000000a8       0xaf
+.text           0x00000000000000a8      0x193
  *(.text)
  .text          0x00000000000000a8       0x14 /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  *(.text.*)
  .text.handle_battery
-                0x00000000000000bc       0x24 worker_src/c/worker.c.37.o
+                0x00000000000000bc       0xb0 worker_src/c/worker.c.37.o
  .text.startup.main
-                0x00000000000000e0       0x1c worker_src/c/worker.c.37.o
-                0x00000000000000e0                main
- .text.app_log  0x00000000000000fc        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
-                0x00000000000000fc                app_log
+                0x000000000000016c       0x44 worker_src/c/worker.c.37.o
+                0x000000000000016c                main
+ .text.app_log  0x00000000000001b0        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+                0x00000000000001b0                app_log
+ .text.battery_state_service_peek
+                0x00000000000001bc        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+                0x00000000000001bc                battery_state_service_peek
  .text.battery_state_service_subscribe
-                0x0000000000000108        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
-                0x0000000000000108                battery_state_service_subscribe
+                0x00000000000001c8        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+                0x00000000000001c8                battery_state_service_subscribe
  .text.battery_state_service_unsubscribe
-                0x0000000000000114        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
-                0x0000000000000114                battery_state_service_unsubscribe
+                0x00000000000001d4        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+                0x00000000000001d4                battery_state_service_unsubscribe
+ .text.persist_exists
+                0x00000000000001e0        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+                0x00000000000001e0                persist_exists
+ .text.persist_read_data
+                0x00000000000001ec        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+                0x00000000000001ec                persist_read_data
+ .text.persist_write_data
+                0x00000000000001f8        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+                0x00000000000001f8                persist_write_data
  .text.worker_event_loop
-                0x0000000000000120        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
-                0x0000000000000120                worker_event_loop
+                0x0000000000000204        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+                0x0000000000000204                worker_event_loop
  .text.worker_launch_app
-                0x000000000000012c        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
-                0x000000000000012c                worker_launch_app
+                0x0000000000000210        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+                0x0000000000000210                worker_launch_app
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x0000000000000138       0x1f worker_src/c/worker.c.37.o
+                0x000000000000021c       0x1f worker_src/c/worker.c.37.o
 
-.glue_7         0x0000000000000158        0x0
+.glue_7         0x000000000000023c        0x0
  .glue_7        0x0000000000000000        0x0 linker stubs
 
-.glue_7t        0x0000000000000158        0x0
+.glue_7t        0x000000000000023c        0x0
  .glue_7t       0x0000000000000000        0x0 linker stubs
 
-.vfp11_veneer   0x0000000000000158        0x0
+.vfp11_veneer   0x000000000000023c        0x0
  .vfp11_veneer  0x0000000000000000        0x0 linker stubs
 
-.v4_bx          0x0000000000000158        0x0
+.v4_bx          0x000000000000023c        0x0
  .v4_bx         0x0000000000000000        0x0 linker stubs
 
-.iplt           0x0000000000000158        0x0
+.iplt           0x000000000000023c        0x0
  .iplt          0x0000000000000000        0x0 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
 
-.rel.dyn        0x0000000000000158        0x0
+.rel.dyn        0x000000000000023c        0x0
  .rel.iplt      0x0000000000000000        0x0 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
 
-.data           0x0000000000000158        0x4
+.data           0x000000000000023c        0x4
  *(.data)
- .data          0x0000000000000158        0x0 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crti.o
- .data          0x0000000000000158        0x4 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
-                0x0000000000000158                __dso_handle
- .data          0x000000000000015c        0x0 worker_src/c/worker.c.37.o
- .data          0x000000000000015c        0x0 aplite/appinfo.auto.c.37.o
- .data          0x000000000000015c        0x0 aplite/src/resource_ids.auto.c.37.o
- .data          0x000000000000015c        0x0 src/message_keys.auto.c.37.o
- .data          0x000000000000015c        0x0 /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
- .data          0x000000000000015c        0x0 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
- .data          0x000000000000015c        0x0 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtn.o
+ .data          0x000000000000023c        0x0 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crti.o
+ .data          0x000000000000023c        0x4 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
+                0x000000000000023c                __dso_handle
+ .data          0x0000000000000240        0x0 worker_src/c/worker.c.37.o
+ .data          0x0000000000000240        0x0 aplite/appinfo.auto.c.37.o
+ .data          0x0000000000000240        0x0 aplite/src/resource_ids.auto.c.37.o
+ .data          0x0000000000000240        0x0 src/message_keys.auto.c.37.o
+ .data          0x0000000000000240        0x0 /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
+ .data          0x0000000000000240        0x0 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
+ .data          0x0000000000000240        0x0 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtn.o
  *(.data.*)
 
-.igot.plt       0x000000000000015c        0x0
+.igot.plt       0x0000000000000240        0x0
  .igot.plt      0x0000000000000000        0x0 /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtbegin.o
 
-.bss
+.bss            0x0000000000000240        0x3
  *(.bss)
  *(.bss.*)
+ .bss.s_prev_charge_state
+                0x0000000000000240        0x3 worker_src/c/worker.c.37.o
 
 DISCARD
  libc.a(*)
@@ -1360,17 +1366,17 @@ OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryCallback/build/aplite/
  .comment       0x0000000000000000       0x4f src/message_keys.auto.c.37.o
  .comment       0x0000000000000000       0x4f /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
 
-.debug_info     0x0000000000000000      0x6d9
- .debug_info    0x0000000000000000      0x23f worker_src/c/worker.c.37.o
- .debug_info    0x000000000000023f      0x31a aplite/appinfo.auto.c.37.o
- .debug_info    0x0000000000000559       0x81 aplite/src/resource_ids.auto.c.37.o
- .debug_info    0x00000000000005da       0xff src/message_keys.auto.c.37.o
+.debug_info     0x0000000000000000      0x7db
+ .debug_info    0x0000000000000000      0x341 worker_src/c/worker.c.37.o
+ .debug_info    0x0000000000000341      0x31a aplite/appinfo.auto.c.37.o
+ .debug_info    0x000000000000065b       0x81 aplite/src/resource_ids.auto.c.37.o
+ .debug_info    0x00000000000006dc       0xff src/message_keys.auto.c.37.o
 
-.debug_abbrev   0x0000000000000000      0x28b
- .debug_abbrev  0x0000000000000000      0x165 worker_src/c/worker.c.37.o
- .debug_abbrev  0x0000000000000165       0x9e aplite/appinfo.auto.c.37.o
- .debug_abbrev  0x0000000000000203       0x44 aplite/src/resource_ids.auto.c.37.o
- .debug_abbrev  0x0000000000000247       0x44 src/message_keys.auto.c.37.o
+.debug_abbrev   0x0000000000000000      0x2bd
+ .debug_abbrev  0x0000000000000000      0x197 worker_src/c/worker.c.37.o
+ .debug_abbrev  0x0000000000000197       0x9e aplite/appinfo.auto.c.37.o
+ .debug_abbrev  0x0000000000000235       0x44 aplite/src/resource_ids.auto.c.37.o
+ .debug_abbrev  0x0000000000000279       0x44 src/message_keys.auto.c.37.o
 
 .debug_loc      0x0000000000000000       0x40
  .debug_loc     0x0000000000000000       0x40 worker_src/c/worker.c.37.o
@@ -1385,24 +1391,24 @@ OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryCallback/build/aplite/
  .debug_aranges
                 0x0000000000000058       0x18 src/message_keys.auto.c.37.o
 
-.debug_ranges   0x0000000000000000       0x30
- .debug_ranges  0x0000000000000000       0x30 worker_src/c/worker.c.37.o
+.debug_ranges   0x0000000000000000       0x18
+ .debug_ranges  0x0000000000000000       0x18 worker_src/c/worker.c.37.o
 
-.debug_line     0x0000000000000000      0x40b
- .debug_line    0x0000000000000000      0x14d worker_src/c/worker.c.37.o
- .debug_line    0x000000000000014d      0x125 aplite/appinfo.auto.c.37.o
- .debug_line    0x0000000000000272       0xd0 aplite/src/resource_ids.auto.c.37.o
- .debug_line    0x0000000000000342       0xc9 src/message_keys.auto.c.37.o
+.debug_line     0x0000000000000000      0x497
+ .debug_line    0x0000000000000000      0x1d9 worker_src/c/worker.c.37.o
+ .debug_line    0x00000000000001d9      0x125 aplite/appinfo.auto.c.37.o
+ .debug_line    0x00000000000002fe       0xd0 aplite/src/resource_ids.auto.c.37.o
+ .debug_line    0x00000000000003ce       0xc9 src/message_keys.auto.c.37.o
 
-.debug_str      0x0000000000000000      0x561
- .debug_str     0x0000000000000000      0x205 worker_src/c/worker.c.37.o
-                                        0x264 (size before relaxing)
- .debug_str     0x0000000000000205      0x248 aplite/appinfo.auto.c.37.o
+.debug_str      0x0000000000000000      0x5be
+ .debug_str     0x0000000000000000      0x26b worker_src/c/worker.c.37.o
+                                        0x2d7 (size before relaxing)
+ .debug_str     0x000000000000026b      0x23f aplite/appinfo.auto.c.37.o
                                         0x330 (size before relaxing)
- .debug_str     0x000000000000044d       0x34 aplite/src/resource_ids.auto.c.37.o
+ .debug_str     0x00000000000004aa       0x34 aplite/src/resource_ids.auto.c.37.o
                                         0x10f (size before relaxing)
- .debug_str     0x0000000000000481       0xe0 src/message_keys.auto.c.37.o
+ .debug_str     0x00000000000004de       0xe0 src/message_keys.auto.c.37.o
                                         0x1bb (size before relaxing)
 
-.debug_frame    0x0000000000000000       0x44
- .debug_frame   0x0000000000000000       0x44 worker_src/c/worker.c.37.o
+.debug_frame    0x0000000000000000       0x48
+ .debug_frame   0x0000000000000000       0x48 worker_src/c/worker.c.37.o

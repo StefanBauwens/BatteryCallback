@@ -11,7 +11,7 @@ static void handle_battery(BatteryChargeState charge_state) {
     if(s_prev_charge_state.charge_percent != charge_state.charge_percent || s_prev_charge_state.is_charging != charge_state.is_charging || s_prev_charge_state.is_plugged != charge_state.is_plugged) { 
       // write changes
       s_prev_charge_state = charge_state;
-      persist_write_data(LAST_STATE_KEY, &,s_prev_charge_state sizeof(s_prev_charge_state));
+      persist_write_data(LAST_STATE_KEY, &s_prev_charge_state, sizeof(s_prev_charge_state));
       
       APP_LOG(APP_LOG_LEVEL_DEBUG, "Battery change event!");
       worker_launch_app(); // call the main app
@@ -19,7 +19,7 @@ static void handle_battery(BatteryChargeState charge_state) {
   } else {
     // write changes
     s_prev_charge_state = charge_state;
-    persist_write_data(LAST_STATE_KEY, &,s_prev_charge_state sizeof(s_prev_charge_state));
+    persist_write_data(LAST_STATE_KEY, &s_prev_charge_state, sizeof(s_prev_charge_state));
 
     APP_LOG(APP_LOG_LEVEL_DEBUG, "Battery change event!");
     worker_launch_app(); // call the main app
