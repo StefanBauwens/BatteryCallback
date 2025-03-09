@@ -1,9 +1,10 @@
 {
-    "JSReady": 10003,
-    "battery": 10004,
+    "JSReady": 10000,
+    "charge_percent": 10005,
     "endpoint": 10002,
-    "fixedTime": 10001,
-    "httpError": 10005,
-    "postRequestSent": 10006,
-    "sendWhenBatteryChanged": 10000
+    "httpError": 10003,
+    "is_charging": 10006,
+    "is_plugged": 10007,
+    "postRequestSent": 10004,
+    "sendWhenBatteryChanged": 10001
 }

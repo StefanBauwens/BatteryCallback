@@ -7,9 +7,10 @@
 //
 
 extern uint32_t MESSAGE_KEY_JSReady;
-extern uint32_t MESSAGE_KEY_battery;
+extern uint32_t MESSAGE_KEY_charge_percent;
 extern uint32_t MESSAGE_KEY_endpoint;
-extern uint32_t MESSAGE_KEY_fixedTime;
 extern uint32_t MESSAGE_KEY_httpError;
+extern uint32_t MESSAGE_KEY_is_charging;
+extern uint32_t MESSAGE_KEY_is_plugged;
 extern uint32_t MESSAGE_KEY_postRequestSent;
 extern uint32_t MESSAGE_KEY_sendWhenBatteryChanged;

@@ -8,13 +8,14 @@
     "displayName": "Battery Callback", 
     "name": "Battery Callback", 
     "messageKeys": {
-        "fixedTime": 10001, 
+        "sendWhenBatteryChanged": 10001, 
         "endpoint": 10002, 
-        "postRequestSent": 10006, 
-        "JSReady": 10003, 
-        "battery": 10004, 
-        "sendWhenBatteryChanged": 10000, 
-        "httpError": 10005
+        "postRequestSent": 10004, 
+        "JSReady": 10000, 
+        "is_plugged": 10007, 
+        "httpError": 10003, 
+        "charge_percent": 10005, 
+        "is_charging": 10006
     }, 
     "companyName": "Stefan Bauwens", 
     "enableMultiJS": true, 
@@ -24,13 +25,14 @@
     ], 
     "sdkVersion": "3", 
     "appKeys": {
-        "fixedTime": 10001, 
+        "sendWhenBatteryChanged": 10001, 
         "endpoint": 10002, 
-        "postRequestSent": 10006, 
-        "JSReady": 10003, 
-        "battery": 10004, 
-        "sendWhenBatteryChanged": 10000, 
-        "httpError": 10005
+        "postRequestSent": 10004, 
+        "JSReady": 10000, 
+        "is_plugged": 10007, 
+        "httpError": 10003, 
+        "charge_percent": 10005, 
+        "is_charging": 10006
     }, 
     "longName": "Battery Callback", 
     "shortName": "Battery Callback", 
