@@ -21,7 +21,6 @@ typedef struct ClaySettings {
 
 static ClaySettings settings;
 static bool s_js_ready;
-static bool s_permission_to_close;
 static bool s_config_set;
 static int8_t s_request_status;
 static BatteryChargeState s_charge_state;
@@ -129,7 +128,6 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
   Tuple *ready_t = dict_find(iter, MESSAGE_KEY_JSReady);
   if (ready_t) {
     s_js_ready = true; // safe to send messages
-    s_permission_to_close = false; // we just opened the app so not yet ready to close
   }
 
   Tuple *postRequestSent_t = dict_find(iter, MESSAGE_KEY_postRequestSent);

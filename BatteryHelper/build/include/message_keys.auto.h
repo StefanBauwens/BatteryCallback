@@ -11,7 +11,7 @@ extern uint32_t MESSAGE_KEY_battery;
 extern uint32_t MESSAGE_KEY_endpoint;
 extern uint32_t MESSAGE_KEY_fixedTime;
 extern uint32_t MESSAGE_KEY_httpError;
-extern uint32_t MESSAGE_KEY_permissionToCloseApp;
+extern uint32_t MESSAGE_KEY_postRequestSent;
 extern uint32_t MESSAGE_KEY_sendAtFixedTime;
 extern uint32_t MESSAGE_KEY_sendWhenAppOpened;
 extern uint32_t MESSAGE_KEY_sendWhenBatteryChanged;

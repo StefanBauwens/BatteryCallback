@@ -32,8 +32,8 @@
       "endpoint",
       "JSReady",
       "battery",
-      "postRequestSent",
-      "httpError"
+      "httpError",
+      "postRequestSent"
     ],
     "resources": {
       "media": [

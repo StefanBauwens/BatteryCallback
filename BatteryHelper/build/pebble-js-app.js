@@ -84,6 +84,7 @@
 	// default config
 	var clay = new Clay(clayConfig, null, {autoHandleEvents: false});
 	var messageKeys = __webpack_require__(5);
+	var configOpen = false;
 	
 	const TIMEOUT_MS = 1000;
 	
@@ -119,7 +120,8 @@
 	        xhrRequest(endpoint, "POST", dict, function(statusCode) {
 	            if (statusCode >= 200 && statusCode < 300)
 	            {
-	                Pebble.sendAppMessage({permissionToCloseApp: 1});
+	                var configOpenInt = configOpen?1:0;
+	                Pebble.sendAppMessage({postRequestSent: configOpenInt})
 	            } else {
 	                Pebble.sendAppMessage({httpError: statusCode});
 	            }
@@ -131,6 +133,7 @@
 	Pebble.addEventListener('showConfiguration', //we need to implement this since we are overriding events in webviewclosed
 	  function(e) {
 	    clay.config = clayConfig;
+	    configOpen = true;
 	    Pebble.openURL(clay.generateUrl());
 	});
 	
@@ -139,6 +142,7 @@
 	    function(e) {
 	    if (e && !e.response) { return; }
 	  
+	    configOpen = false;
 	    var dict = clay.getSettings(e.response);
 	
 	    localStorage.setItem("ENDPOINT", dict[messageKeys.endpoint]); // store endpoint
@@ -162,7 +166,7 @@
 	        dict[messageKeys.fixedTime] = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2);
 	    }
 	
-	    dict[messageKeys.permissionToCloseApp] = 1; // tell the watch-app its safe to close now
+	    //dict[messageKeys.permissionToCloseApp] = 1; // tell the watch-app its safe to close now
 	
 	    // Send settings values to watch side
 	    Pebble.sendAppMessage(dict, function(e) {
@@ -214,13 +218,13 @@
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = {"JSReady":10005,"battery":10006,"endpoint":10004,"fixedTime":10003,"httpError":10008,"permissionToCloseApp":10007,"sendAtFixedTime":10000,"sendWhenAppOpened":10002,"sendWhenBatteryChanged":10001}
+	module.exports = {"JSReady":10005,"battery":10006,"endpoint":10004,"fixedTime":10003,"httpError":10007,"postRequestSent":10008,"sendAtFixedTime":10000,"sendWhenAppOpened":10002,"sendWhenBatteryChanged":10001}
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-	module.exports = [{"type":"heading","defaultValue":"Battery Helper"},{"type":"text","defaultValue":"Created by Stefan Bauwens for the Rebble Hackathon 002"},{"type":"section","items":[{"type":"heading","defaultValue":"Settings"},{"type":"text","defaultValue":"The REST endpoint the app should POST to with the battery level"},{"type":"input","messageKey":"endpoint","label":"Endpoint","defaultValue":"","attributes":{"placeholder":"eg: localhost:1234"}},{"type":"toggle","messageKey":"sendWhenAppOpened","label":"Send When App Opened","defaultValue":true},{"type":"toggle","messageKey":"sendWhenBatteryChanged","label":"Send When Battery Changed","defaultValue":false},{"type":"toggle","messageKey":"sendAtFixedTime","label":"Send At Fixed Time","defaultValue":false},{"type":"input","messageKey":"fixedTime","defaultValue":"","label":"Fixed Time","attributes":{"type":"time"}}]},{"type":"submit","defaultValue":"Save"}]
+	module.exports = [{"type":"heading","defaultValue":"Battery Helper"},{"type":"text","defaultValue":"Created by Stefan Bauwens for the Rebble Hackathon 002"},{"type":"section","items":[{"type":"heading","defaultValue":"Settings"},{"type":"text","defaultValue":"The REST endpoint the app should POST to with the battery level"},{"type":"input","messageKey":"endpoint","label":"Endpoint","defaultValue":"","attributes":{"placeholder":"eg: http://localhost:1234"}},{"type":"toggle","messageKey":"sendWhenAppOpened","label":"Send When App Opened","defaultValue":true},{"type":"toggle","messageKey":"sendWhenBatteryChanged","label":"Send When Battery Changed","defaultValue":false},{"type":"toggle","messageKey":"sendAtFixedTime","label":"Send At Fixed Time","defaultValue":false},{"type":"input","messageKey":"fixedTime","defaultValue":"","label":"Fixed Time","attributes":{"type":"time"}}]},{"type":"submit","defaultValue":"Save"}]
 
 /***/ })
 /******/ ]);
