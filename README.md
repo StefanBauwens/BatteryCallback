@@ -11,7 +11,9 @@ The payload is a JSON-formatted string that follows the same structure as <a hre
 ## Features:
 v1.0:
 - send battery charge state to custom endpoint
-- manual and event-driven callback 
+- manual and event-driven callback
+v1.1:
+- fix opening via intent (from tasker) not sending
 
 ## Ingration with Tasker
 ### Tasker as server
@@ -19,8 +21,14 @@ Don't want to set up your own server for this endpoint? You can just use Tasker 
 Set the Method to `POST` and set the endpoint in the Battery Callback watch app settings to `http://localhost:PORT` (PORT being the port you specified in Tasker).
 From there you can create a Task that processes the `%http_request_body`. 
 
-### Request battery stae
+### Request battery state
 You can also use Tasker to trigger a battery callback on demand! Using intents you can trigger the app to open on the watch, which will call the endpoint automatically.
 1. Create a new task and select the 'Send Intent' action (Under System). 
 2. Set Action to: `com.getpebble.action.app.START`
 3. Set Extra to: `uuid:bfa0936b-a7ab-433c-8092-a93e934b9944`
+
+## Debugging endpoint issues
+Not adding `http://` before your endpoint URL may result in a timeout.
+The timeout time is set to 10 seconds. After that you should see the `Fail! Timeout` message on your Pebble screen.
+If there's a status error (e.g `404`) it will show as `Fail! 404`.
+Everytime you open the app manually a request is attempted so you can easily test this way. 
