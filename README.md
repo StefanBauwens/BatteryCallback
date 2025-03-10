@@ -12,6 +12,7 @@ The payload is a JSON-formatted string that follows the same structure as <a hre
 v1.0:
 - send battery charge state to custom endpoint
 - manual and event-driven callback
+  
 v1.1:
 - fix opening via intent (from tasker) not sending
 
