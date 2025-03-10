@@ -4,6 +4,7 @@
     "endpoint": 10002,
     "httpError": 10003,
     "is_charging": 10006,
+    "is_config_open": 10008,
     "is_plugged": 10007,
     "postRequestSent": 10004,
     "sendWhenBatteryChanged": 10001

@@ -181,8 +181,10 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
 
   Tuple *is_config_open_t = dict_find(iter, MESSAGE_KEY_is_config_open);
   if (is_config_open_t) {
-    bool config_was_open = s_config_open;
+    bool config_was_open = is_config_open();
     s_config_open = is_config_open_t->value->int32 == 1;
+
+    APP_LOG(APP_LOG_LEVEL_DEBUG, "Config open %d", s_config_open?1:0);
 
     if (config_was_open && !is_config_open()) { // We close the app automatically since we were setting config
       // close app
@@ -199,7 +201,7 @@ static void update(struct tm *tick_time, TimeUnits units_changed) { // runs ever
     {
       if(is_config_open()) {
         s_request_status = REQUEST_STATE_NONE;
-        text_layer_set_text(s_text_layer, "Config being set...");
+        text_layer_set_text(s_text_layer, "Open for config. (Close with back button when done)");
       } else {
         s_request_status = REQUEST_STATE_SEND_BATTERY_LEVEL;
         snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Sending...", s_charge_state.charge_percent);

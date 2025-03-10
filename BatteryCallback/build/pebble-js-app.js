@@ -112,7 +112,13 @@
 	Pebble.addEventListener('ready', 
 	    function(e) {
 	        console.log('PebbleKit JS ready!');
-	        Pebble.sendAppMessage({'JSReady': 1}); // notify watch app we're ready to receive
+	
+	        setTimeout(function() { // we wait a little so configOpen sets correctly
+	            var dict = {};
+	            dict[messageKeys.JSReady] = 1;
+	            dict[messageKeys.is_config_open] = configOpen? 1 : 0;
+	            Pebble.sendAppMessage(dict); // notify watch app we're ready to receive
+	        }, 500);
 	    }   
 	);
 	
@@ -157,6 +163,7 @@
 	  
 	    configOpen = false;
 	    var dict = clay.getSettings(e.response);
+	    dict[messageKeys.is_config_open] = 0; 
 	
 	    localStorage.setItem("ENDPOINT", dict[messageKeys.endpoint]); // store endpoint
 	
@@ -228,7 +235,7 @@
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = {"JSReady":10000,"charge_percent":10005,"endpoint":10002,"httpError":10003,"is_charging":10006,"is_plugged":10007,"postRequestSent":10004,"sendWhenBatteryChanged":10001}
+	module.exports = {"JSReady":10000,"charge_percent":10005,"endpoint":10002,"httpError":10003,"is_charging":10006,"is_config_open":10008,"is_plugged":10007,"postRequestSent":10004,"sendWhenBatteryChanged":10001}
 
 /***/ }),
 /* 6 */

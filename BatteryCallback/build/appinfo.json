@@ -15,11 +15,12 @@
         "is_plugged": 10007, 
         "httpError": 10003, 
         "charge_percent": 10005, 
-        "is_charging": 10006
+        "is_charging": 10006, 
+        "is_config_open": 10008
     }, 
     "companyName": "Stefan Bauwens", 
     "enableMultiJS": true, 
-    "versionLabel": "1.0", 
+    "versionLabel": "1.1", 
     "capabilities": [
         "configurable"
     ], 
@@ -32,7 +33,8 @@
         "is_plugged": 10007, 
         "httpError": 10003, 
         "charge_percent": 10005, 
-        "is_charging": 10006
+        "is_charging": 10006, 
+        "is_config_open": 10008
     }, 
     "longName": "Battery Callback", 
     "shortName": "Battery Callback", 

@@ -32,10 +32,13 @@ var xhrRequest = function (url, type, body, callback) {
 Pebble.addEventListener('ready', 
     function(e) {
         console.log('PebbleKit JS ready!');
-        var dict = {};
-        dict[messageKeys.JSReady] = 1;
-        dict[messageKeys.configOpen] = configOpen? 1 : 0;
-        Pebble.sendAppMessage(dict); // notify watch app we're ready to receive
+
+        setTimeout(function() { // we wait a little so configOpen sets correctly
+            var dict = {};
+            dict[messageKeys.JSReady] = 1;
+            dict[messageKeys.is_config_open] = configOpen? 1 : 0;
+            Pebble.sendAppMessage(dict); // notify watch app we're ready to receive
+        }, 500);
     }   
 );
 

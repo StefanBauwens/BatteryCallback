@@ -43,6 +43,8 @@ Discarded input sections
                 0x0000000000000000        0x4 src/message_keys.auto.c.37.o
  .data.MESSAGE_KEY_is_charging
                 0x0000000000000000        0x4 src/message_keys.auto.c.37.o
+ .data.MESSAGE_KEY_is_config_open
+                0x0000000000000000        0x4 src/message_keys.auto.c.37.o
  .bss           0x0000000000000000        0x0 /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
  .text.accel_data_service_subscribe__deprecated
                 0x0000000000000000        0xc /home/rebble/.pebble-sdk/SDKs/current/sdk-core/pebble/aplite/lib/libpebble.a(tmp7jpKUopebble.o)
@@ -1366,11 +1368,11 @@ OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryCallback/build/aplite/
  .comment       0x0000000000000000       0x4f src/message_keys.auto.c.37.o
  .comment       0x0000000000000000       0x4f /home/rebble/pebble-dev/pebble-sdk-4.6-rc2-linux64/arm-cs-tools/bin/../lib/gcc/arm-none-eabi/4.7.2/thumb2/crtend.o
 
-.debug_info     0x0000000000000000      0x7db
+.debug_info     0x0000000000000000      0x7ed
  .debug_info    0x0000000000000000      0x341 worker_src/c/worker.c.37.o
  .debug_info    0x0000000000000341      0x31a aplite/appinfo.auto.c.37.o
  .debug_info    0x000000000000065b       0x81 aplite/src/resource_ids.auto.c.37.o
- .debug_info    0x00000000000006dc       0xff src/message_keys.auto.c.37.o
+ .debug_info    0x00000000000006dc      0x111 src/message_keys.auto.c.37.o
 
 .debug_abbrev   0x0000000000000000      0x2bd
  .debug_abbrev  0x0000000000000000      0x197 worker_src/c/worker.c.37.o
@@ -1400,15 +1402,15 @@ OUTPUT(/home/rebble/Documents/GitHub/BatteryHelper/BatteryCallback/build/aplite/
  .debug_line    0x00000000000002fe       0xd0 aplite/src/resource_ids.auto.c.37.o
  .debug_line    0x00000000000003ce       0xc9 src/message_keys.auto.c.37.o
 
-.debug_str      0x0000000000000000      0x5be
+.debug_str      0x0000000000000000      0x5d9
  .debug_str     0x0000000000000000      0x26b worker_src/c/worker.c.37.o
                                         0x2d7 (size before relaxing)
  .debug_str     0x000000000000026b      0x23f aplite/appinfo.auto.c.37.o
                                         0x330 (size before relaxing)
  .debug_str     0x00000000000004aa       0x34 aplite/src/resource_ids.auto.c.37.o
                                         0x10f (size before relaxing)
- .debug_str     0x00000000000004de       0xe0 src/message_keys.auto.c.37.o
-                                        0x1bb (size before relaxing)
+ .debug_str     0x00000000000004de       0xfb src/message_keys.auto.c.37.o
+                                        0x1d6 (size before relaxing)
 
 .debug_frame    0x0000000000000000       0x48
  .debug_frame   0x0000000000000000       0x48 worker_src/c/worker.c.37.o
