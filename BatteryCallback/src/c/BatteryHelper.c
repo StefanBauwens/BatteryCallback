@@ -17,6 +17,7 @@ typedef struct ClaySettings {
 
 static ClaySettings settings;
 static bool s_js_ready;
+static bool s_config_open;
 static bool s_config_set;
 static int8_t s_request_status;
 static BatteryChargeState s_charge_state;
@@ -30,8 +31,12 @@ static void prv_default_settings() {
   settings.SendWhenBatteryChanged = false;
 }
 
-static bool comm_is_js_ready() {
+static bool is_js_ready() {
   return s_js_ready;
+}
+
+static bool is_config_open() {
+  return s_config_open;
 }
 
 static void quit_self() {
@@ -122,11 +127,6 @@ static void outbox_sent_handler(DictionaryIterator *iter, void *context) {
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) {
   bool settingsSet = false;
 
-  Tuple *ready_t = dict_find(iter, MESSAGE_KEY_JSReady);
-  if (ready_t) {
-    s_js_ready = true; // safe to send messages
-  }
-
   Tuple *postRequestSent_t = dict_find(iter, MESSAGE_KEY_postRequestSent);
   if (postRequestSent_t) {
     static char battery_text[64];
@@ -173,20 +173,41 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context) 
       }
     }
   }
+
+  Tuple *ready_t = dict_find(iter, MESSAGE_KEY_JSReady);
+  if (ready_t) {
+    s_js_ready = true; // safe to send messages
+  }
+
+  Tuple *is_config_open_t = dict_find(iter, MESSAGE_KEY_is_config_open);
+  if (is_config_open_t) {
+    bool config_was_open = s_config_open;
+    s_config_open = is_config_open_t->value->int32 == 1;
+
+    if (config_was_open && !is_config_open()) { // We close the app automatically since we were setting config
+      // close app
+      quit_self();
+    }
+  }
 }
 
 static void update(struct tm *tick_time, TimeUnits units_changed) { // runs every second 
   if(s_request_status == REQUEST_STATE_WAIT_FOR_JS_READY)
   {
     static char battery_text[46];
-    if (comm_is_js_ready())
+    if (is_js_ready())
     {
-      s_request_status = REQUEST_STATE_SEND_BATTERY_LEVEL;
-      snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Sending...", s_charge_state.charge_percent);
-      text_layer_set_text(s_text_layer, battery_text);
-
-      // tell js to send the charge state
-      send_battery_charge_state_with_timeout();
+      if(is_config_open()) {
+        s_request_status = REQUEST_STATE_NONE;
+        text_layer_set_text(s_text_layer, "Config being set...");
+      } else {
+        s_request_status = REQUEST_STATE_SEND_BATTERY_LEVEL;
+        snprintf(battery_text, sizeof(battery_text), "Battery: %d%%\n Sending...", s_charge_state.charge_percent);
+        text_layer_set_text(s_text_layer, battery_text);
+  
+        // tell js to send the charge state
+        send_battery_charge_state_with_timeout();
+      }
     }
     else
     {
@@ -211,14 +232,8 @@ static void prv_window_load(Window *window) {
   layer_add_child(window_layer, text_layer_get_layer(s_text_layer));
  
   if (s_config_set) {
-     if (launch_reason() == APP_LAUNCH_PHONE) {
-      // opening because setting config
-      text_layer_set_text(s_text_layer, "Open for configuration. (Close with back button when done)");
-     } else {
-      // Fixed opening or manual opening both cause a message to be sent
-      prv_get_battery_level();
-      s_request_status = REQUEST_STATE_WAIT_FOR_JS_READY;
-     }
+    prv_get_battery_level();
+    s_request_status = REQUEST_STATE_WAIT_FOR_JS_READY;
   } else {
     text_layer_set_text(s_text_layer, "Config not yet set! Please set this in the Pebble app!");
   }

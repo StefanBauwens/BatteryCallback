@@ -1,7 +1,7 @@
 {
   "name": "Battery Callback",
   "author": "Stefan Bauwens",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": ["pebble-app"],
   "private": true,
   "dependencies": {
@@ -32,7 +32,8 @@
       "postRequestSent",
       "charge_percent",
       "is_charging",
-      "is_plugged"
+      "is_plugged",
+      "is_config_open"
     ],
     "resources": {
       "media": [

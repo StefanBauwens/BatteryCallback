@@ -32,7 +32,10 @@ var xhrRequest = function (url, type, body, callback) {
 Pebble.addEventListener('ready', 
     function(e) {
         console.log('PebbleKit JS ready!');
-        Pebble.sendAppMessage({'JSReady': 1}); // notify watch app we're ready to receive
+        var dict = {};
+        dict[messageKeys.JSReady] = 1;
+        dict[messageKeys.configOpen] = configOpen? 1 : 0;
+        Pebble.sendAppMessage(dict); // notify watch app we're ready to receive
     }   
 );
 
@@ -77,6 +80,7 @@ Pebble.addEventListener('webviewclosed',
   
     configOpen = false;
     var dict = clay.getSettings(e.response);
+    dict[messageKeys.is_config_open] = 0; 
 
     localStorage.setItem("ENDPOINT", dict[messageKeys.endpoint]); // store endpoint
 
