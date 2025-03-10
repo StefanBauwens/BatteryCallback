@@ -1,5 +1,6 @@
 # Battery Callback
 This is a battery tool I created for the Rebble Hackaton #002.
+
 It gives you the possibility to (automatically) post your Pebble's battery status to a REST server.
 
 <img src ="BatteryCallback/screenshot_config.png" width= 200 alt = "Battery Callback Phone Config screenshot">
