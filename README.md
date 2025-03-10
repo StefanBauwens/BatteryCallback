@@ -1,5 +1,5 @@
 # Battery Callback
-This is a battery tool I created for the Rebble Hackaton #002.
+This is a battery tool I created for the Rebble Hackathon #002.
 
 It gives you the possibility to (automatically) post your Pebble's battery status to a REST server.
 
