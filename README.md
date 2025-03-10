@@ -28,6 +28,13 @@ You can also use Tasker to trigger a battery callback on demand! Using intents y
 2. Set Action to: `com.getpebble.action.app.START`
 3. Set Extra to: `uuid:bfa0936b-a7ab-433c-8092-a93e934b9944`
 
+## Payload
+The payload of the POST-request is JSON-formatted and has the same structure as <a href="https://developer.rebble.io/developer.pebble.com/docs/c/Foundation/Event_Service/BatteryStateService/index.html#BatteryChargeState">BatteryStateService</a>.
+Example output:
+```
+{"charge_percent":30,"is_charging":false,"is_plugged":false}
+```
+
 ## Debugging endpoint issues
 Not adding `http://` before your endpoint URL may result in a timeout.
 The timeout time is set to 10 seconds. After that you should see the `Fail! Timeout` message on your Pebble screen.
