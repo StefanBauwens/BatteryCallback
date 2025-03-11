@@ -22,6 +22,8 @@ Don't want to set up your own server for this endpoint? You can just use Tasker 
 
 Set the Method to `POST` and set the endpoint in the Battery Callback watch app settings to `http://localhost:PORT` (PORT being the port you specified in Tasker).
 
+Set the Quick Response to 200.
+
 From there you can create a Task that processes the `%http_request_body`. 
 
 ### Request battery state
